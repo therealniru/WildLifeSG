@@ -23,7 +23,9 @@ const HomeScreen = () => {
 
   return (
     <View style={tw`flex-1`}>
+
       <Map location={location} hasPermission={hasPermission} />
+
       <View style={tw`absolute bottom-5 left-5 right-5 flex-col space-y-2`}>
         <ActionButton
           title="View Wildlife Spottings"
@@ -36,6 +38,7 @@ const HomeScreen = () => {
           color="#4CAF50"
         />
       </View>
+
     </View>
   );
 };

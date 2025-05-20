@@ -5,11 +5,22 @@
  * @format
  */
 
-import React from 'react';
 import HomeScreen from './src/screens/HomeScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Login from './src/screens/Login';
+import { NavigationContainer } from '@react-navigation/native';
 
-function App(): React.JSX.Element {
-  return <HomeScreen />;
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
 export default App;
