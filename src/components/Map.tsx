@@ -1,9 +1,7 @@
-import React from 'react';
-import { Platform, StatusBar } from 'react-native';
 import MapView, { Region } from 'react-native-maps';
 import tw from 'twrnc';
 
-interface MapProps {
+export interface MapProps {
   location: Region;
   hasPermission: boolean;
 }
@@ -18,8 +16,7 @@ const Map = ({ location, hasPermission }: MapProps) => {
   };
 
   const mapStyle = [
-    tw`flex-1 w-full h-full`,
-    Platform.OS === 'android' ? { marginTop: StatusBar.currentHeight ?? 0 } : {},
+    tw`flex-1 w-full h-full`
   ];
 
   return (

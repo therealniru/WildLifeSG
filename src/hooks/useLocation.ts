@@ -10,6 +10,7 @@ export const useLocation = () => {
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
+  
   const [hasPermission, setHasPermission] = useState(false);
 
   const getCurrentLocation = useCallback(async () => {

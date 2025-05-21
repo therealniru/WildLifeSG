@@ -8,24 +8,10 @@ import { Button } from 'react-native';
 import tw from 'twrnc';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 
-import type { StackNavigationProp } from '@react-navigation/stack';
-import type { RouteProp } from '@react-navigation/native';
+import type { HomeScreenProps } from '../types/stack';
 
-type RootStackParamList = {
-  Home: undefined;
-  ViewSightings: undefined;
-  AddSpotting: undefined;
-};
-
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
-type HomeScreenRouteProp = RouteProp<RootStackParamList, 'Home'>;
-
-interface HomeScreenProps {
-  navigation: HomeScreenNavigationProp;
-  route: HomeScreenRouteProp;
-}
-
-const HomeScreen = ({ navigation }: HomeScreenProps) => {
+//destructures 1st field (navigation) from props as navigation
+const HomeScreen = ( {navigation} : HomeScreenProps) => {  
   const { location, hasPermission, requestPermission } = useLocation();
   const auth = FIREBASE_AUTH;
 
@@ -39,10 +25,11 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         />
       ),
     });
-  }, [navigation]);
+  }, [navigation]);   
+
+  // useLayoutEffect is used to set the header options (signout button) when the component mounts
 
   const signOut = () => {
-    // Sign out logic here
     ToastAndroid.show('Signing out...', ToastAndroid.SHORT);
     auth.signOut()
   }
@@ -54,7 +41,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
 
   const handleAddSpotting = () => {
     if (!hasPermission) {
-      ToastAndroid.show('Location permission needed to add spotting', ToastAndroid.LONG);
+      ToastAndroid.show('Location permission needed to add spotting', ToastAndroid.SHORT);
       requestPermission();
       return;
     }

@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -28,7 +21,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
-          <Stack.Screen name="Home" component={LoggedInNavigator} />
+          <Stack.Screen name="Home" component={LoggedInNavigator} />  // component is a navigator with multiple screens
         ) : (
           <Stack.Screen name="Login" component={LoggedOutNavigator} />
         )}
