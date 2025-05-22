@@ -13,4 +13,4 @@ export interface Region {
   longitude: number;
   latitudeDelta: number;
   longitudeDelta: number;
-} 
+}
