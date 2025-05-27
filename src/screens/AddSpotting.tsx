@@ -30,17 +30,6 @@ import { ref, push, set } from "firebase/database";
 // creating a sighting reference in our firebase database
 const sightingsRef = ref(db, 'sightings');
 
-
-// Dictionary to store the sightings
-// string(lat + " " + lng) -> string(name + " " + desc)
-interface Dict {
-  [key: string]: string;
-}
-
-const data: Dict = {};
-
-
-
 // const TILE_URL =
 //   'https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png';
 
@@ -49,6 +38,7 @@ const data: Dict = {};
 const TILE_URL =
   'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=AIzaSyAcTLwR-ahTo_io_aRiPmOPwmxbO3z4IzU';
 
+// the html content for webview 
 const html = `<!DOCTYPE html>
 <html><head>
   <meta name="viewport" content="initial-scale=1.0"/>
@@ -98,6 +88,8 @@ const AddSpotting = () => {
     setModalVisible(true);
   };
 
+  // unable to ope location user location as map opens so 
+  // the code below is not used for now 
   // to recenter map to user location before adding marker in current location
   // useEffect(() => {
   //   (async () => {
@@ -146,8 +138,8 @@ const AddSpotting = () => {
 
   // Adding marker for current location
   const addMarkerCurr = () => {
-    console.log("print me first");
-    console.log('addMarkerCurr', coordsUser);
+    //console.log("print me first");
+    //console.log('addMarkerCurr', coordsUser);
     if (!coordsUser) return;
     const labelHtml = `${"Sighting: " + name}<br/>${"Landmark: " + desc}`;
     const inj = `
@@ -175,15 +167,17 @@ const AddSpotting = () => {
 
   // Defining what is to to be done when user presses the "Add my Location" button
   const locateUser = async () => {
-    console.log('locateUser');
+    //console.log('locateUser');
     setLocating(true);
-    // request permission
+    // requesting for permission
     const { status } = await Location.requestForegroundPermissionsAsync();
+    // if not granted, alerting user and returning
     if (status !== 'granted') {
       alert('Location permission denied');
       setLocating(false);
       return;
     }
+    // getting user's position if permission is granted
     const pos = await Location.getCurrentPositionAsync({});
     const { latitude: lat, longitude: lng } = pos.coords;
     setCoordsUser({ lat, lng });
@@ -192,7 +186,7 @@ const AddSpotting = () => {
     `;
     webRef.current?.injectJavaScript(inj);
     setModalVisibleCurr(true);
-    console.log('here');
+    //console.log('here');
     setLocating(false);
   };
   return (  
