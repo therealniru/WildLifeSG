@@ -51,8 +51,8 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
 
   return (
     <View style={tw`flex-1`}>
-
-      <Map location={location} hasPermission={hasPermission} />
+      {/*Below is the map component initially in the homepage, but commented out for now*/}
+      {/*<Map location={location} hasPermission={hasPermission} />*/}
 
       <View style={tw`absolute bottom-5 left-5 right-5 flex-col space-y-2`}>
         
