@@ -200,12 +200,12 @@ const AddSpotting = () => {
         geolocationEnabled={true}
       />
 
-      {/* Locate Me button */}
+      {/* Add My Location button */}
       <View style={styles.buttonContainer}>
         {locating
           ? <ActivityIndicator color="#fff"/>
           : <Button 
-              title="Add my Location" 
+              title="Add My Location" 
               onPress={locateUser} 
               color="#0066cc"
             />
