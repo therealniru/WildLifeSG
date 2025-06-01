@@ -10,7 +10,18 @@ const LoggedOutStack = createNativeStackNavigator<LoggedOutStackParamList>();
 
 const LoggedInNavigator = () => {
     return (
-        <LoggedInStack.Navigator>
+        <LoggedInStack.Navigator
+            screenOptions={{
+                headerShown: true,
+                headerTitleAlign: 'center',
+                headerStyle: {
+                    backgroundColor: '#006400',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                },
+            }}>
             <LoggedInStack.Screen name="Home" component={HomeScreen} />  
             <LoggedInStack.Screen name="AddSpotting" component={AddSpotting} />
             <LoggedInStack.Screen name="ViewSightings" component={ViewSightings} />
