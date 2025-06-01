@@ -23,8 +23,8 @@ const LoggedInNavigator = () => {
                 },
             }}>
             <LoggedInStack.Screen name="Home" component={HomeScreen} />  
-            <LoggedInStack.Screen name="AddSpotting" component={AddSpotting} />
-            <LoggedInStack.Screen name="ViewSightings" component={ViewSightings} />
+            <LoggedInStack.Screen name="AddSpotting" component={AddSpotting} options = {{title : "Add Spotting"}}/>
+            <LoggedInStack.Screen name="ViewSightings" component={ViewSightings} options = {{title : "View Sightings"}}/>
         </LoggedInStack.Navigator>
     )
 }

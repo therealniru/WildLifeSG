@@ -45,7 +45,7 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
       requestPermission();
       return;
     }
-    ToastAndroid.show('Adding new spotting...', ToastAndroid.SHORT);
+    ToastAndroid.show('Opening Add Spotting...', ToastAndroid.SHORT);
     navigation.navigate('AddSpotting');
   };
 
