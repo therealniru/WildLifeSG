@@ -11,3 +11,4 @@ const ViewSightings = () => {
 }
 
 export default ViewSightings;
+
