@@ -1,4 +1,4 @@
-import { View, ToastAndroid } from 'react-native';
+import { View, ToastAndroid, ImageBackground, StyleSheet } from 'react-native';
 import Map from '../components/Map';
 import ActionButton from '../components/ActionButton';
 import { useLocation } from '../hooks/useLocation';
@@ -50,25 +50,30 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
   };
 
   return (
+    <ImageBackground
+      source={require('../../assets/homepage-bg.png')}
+      style={tw`flex-1`}
+      resizeMode="stretch">
     <View style={tw`flex-1`}>
       {/*Below is the map component initially in the homepage, but commented out for now*/}
       {/*<Map location={location} hasPermission={hasPermission} />*/}
 
-      <View style={tw`absolute bottom-5 left-5 right-5 flex-col space-y-2`}>
+      <View style={tw`absolute bottom-60 left-7 right-7 flex-col space-y-2`}>
         
         <ActionButton
           title="View Wildlife Spottings"
           onPress={handleViewSpottings}
-          color="#2196F3"
+          color="#006400"
         />
         <ActionButton
           title="Add New Spotting"
           onPress={handleAddSpotting}
-          color="#4CAF50"
+          color="#006400"
         />
       </View>
 
     </View>
+    </ImageBackground>
   );
 };
 
