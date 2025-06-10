@@ -299,14 +299,56 @@
 
 // export default AddSpotting;
 
+import {
+  ActivityIndicator,
+  Button,
+  Modal,
+  Platform,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 import {useState} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import { useLocation } from '../hooks/useLocation';
 import tw from 'twrnc';
-import { View } from 'react-native';
+import { set } from 'firebase/database'; 
+
 const AddSpotting = () => {
   const { location, hasPermission, requestPermission } = useLocation();
   const [marker, setMarker] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState('');
+  const [desc, setDesc] = useState('');
+  const [names, setNames] = useState<string[]>([]);
+  const [descs, setDescs] = useState<string[]>([]);
+  const [coords, setCoords] = useState<{ latitude: number; longitude: number } | null>(null); 
+  // onMapPress to define what happens when someone clicks on a map 
+  const onMapPress = (event) => {
+    setCoords(event.nativeEvent.coordinate);
+    setModalVisible(true);
+  }
+  // function to store marker coordinates in the marker array
+  const addMarker = () => { 
+    setMarker([...marker, { coordinate: { latitude: coords.latitude, longitude: coords.longitude } }]);
+    setNames([...names, name]);
+    setDescs([...descs, desc]);
+    console.log("here");
+    console.log(name + " " + desc);
+    names[names.length] = name;
+    descs[descs.length] = desc;
+    console.log(names);
+    console.log(descs);
+    setModalVisible(false);
+    setName("");
+    setDesc("");
+  }
+  // function to set marker loacation to user location
+  const addMarkerCurr = () => {
+    setModalVisible(true);
+    //setMarker([...marker, { coordinate: { latitude: location.latitude, longitude: location.longitude } }]);
+    setCoords(location)
+  }
   return (
     <View style={tw`flex-1`}>
       <MapView
@@ -322,8 +364,85 @@ const AddSpotting = () => {
         loadingEnabled={true}
         loadingIndicatorColor="#666666"
         loadingBackgroundColor="#eeeeee"
+        onPress = {(event) => onMapPress(event)}
       >
-      <Marker
+      {marker.map((marker, index) => { 
+        console.log(index);
+        console.log(marker);
+        return (
+        <Marker key = {index} coordinate = {marker.coordinate} title = {"Sighting: " + names[index]} description = {"Description: " + descs[index]}/>
+      )})}
+      
+      </MapView>
+      {/* Add My Location button */}
+       <View style={styles.buttonContainer}>
+            <Button 
+               title="Add My Location" 
+               onPress={addMarkerCurr} 
+               color="#0066cc"
+             />
+       </View>
+      {/* Modal for custom markers */}
+      <Modal
+        visible={modalVisible}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.backdrop}>
+          <View style={styles.modal}>
+            <TextInput
+              placeholder="Sighting"
+              value={name}
+              onChangeText={setName}
+              style={styles.input}
+            />
+            <TextInput
+              placeholder="Landmark"
+              value={desc}
+              onChangeText={setDesc}
+              style={styles.input}
+            />
+            <Button title="Add Sighting" onPress={addMarker} />
+            <Button title="Cancel" onPress={() => setModalVisible(false)} />
+          </View>
+        </View>
+      </Modal> 
+    </View>
+  );
+}
+const styles = StyleSheet.create({
+  buttonContainer: {
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? 70 : 60,
+    right: 10,
+    backgroundColor: '#0066cc',
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  backdrop: {
+    flex: 1,
+    backgroundColor: '#00000055',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modal: {
+    width: '80%',
+    padding: 16,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+  },
+  input: {
+    borderBottomWidth: 1,
+    marginBottom: 12,
+    paddingVertical: 10,
+  },
+});
+export default AddSpotting;
+
+// extras
+
+{/* <Marker
         coordinate={{
           latitude: 1.3561,
           longitude: 103.8198,
@@ -338,10 +457,4 @@ const AddSpotting = () => {
         }}
         title="Marker"
         description="This is a marker"
-      /> 
-      </MapView>
-      </View>  
-  );
-}
-
-export default AddSpotting;
+      />  */}
