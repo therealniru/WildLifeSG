@@ -312,17 +312,29 @@ import {useState} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import { useLocation } from '../hooks/useLocation';
 import tw from 'twrnc';
-import { set } from 'firebase/database'; 
+import { db } from '../../FirebaseConfig';
+import { ref, push, set } from "firebase/database";
+import type { Region } from 'react-native-maps';
+// creating a sighting reference in our firebase database
+const sightingsRef = ref(db, 'sightings');
 
 const AddSpotting = () => {
   const { location, hasPermission, requestPermission } = useLocation();
-  const [marker, setMarker] = useState([]);
+  const [marker, setMarker] = useState<Sighting[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [names, setNames] = useState<string[]>([]);
   const [descs, setDescs] = useState<string[]>([]);
   const [coords, setCoords] = useState<{ latitude: number; longitude: number } | null>(null); 
+  type Sighting = {
+      lat: number;
+      lng: number;
+      name: string;
+      desc: string;
+      timeStamp: number
+    };
+  console.log(hasPermission); 
   // onMapPress to define what happens when someone clicks on a map 
   const onMapPress = (event) => {
     setCoords(event.nativeEvent.coordinate);
@@ -330,21 +342,30 @@ const AddSpotting = () => {
   }
   // function to store marker coordinates in the marker array
   const addMarker = () => { 
-    setMarker([...marker, { coordinate: { latitude: coords.latitude, longitude: coords.longitude } }]);
+    setMarker([...marker, { lat: coords.latitude, lng: coords.longitude, name: name, desc: desc, timeStamp: Date.now() }]);
     setNames([...names, name]);
     setDescs([...descs, desc]);
     console.log("here");
     console.log(name + " " + desc);
     names[names.length] = name;
     descs[descs.length] = desc;
-    console.log(names);
-    console.log(descs);
+    //console.log(names);
+    //console.log(descs);
     setModalVisible(false);
+    //adding sighting to our realtime firebase database
+    const newSightingRef = push(sightingsRef);
+    set(newSightingRef, {
+      lat: coords.latitude,
+      lng: coords.longitude,
+      name: name,
+      desc: desc, 
+      timestamp: Date.now(),
+    });
     setName("");
     setDesc("");
   }
-  // function to set marker loacation to user location
-  const addMarkerCurr = () => {
+  // function to set marker location to user location
+  const setCurrLoc = () => {
     setModalVisible(true);
     //setMarker([...marker, { coordinate: { latitude: location.latitude, longitude: location.longitude } }]);
     setCoords(location)
@@ -370,7 +391,7 @@ const AddSpotting = () => {
         console.log(index);
         console.log(marker);
         return (
-        <Marker key = {index} coordinate = {marker.coordinate} title = {"Sighting: " + names[index]} description = {"Description: " + descs[index]}/>
+        <Marker key = {index} coordinate = {{latitude: marker.lat, longitude: marker.lng}} title = {"Sighting: " + marker.name} description = {"Description: " + marker.desc}/>
       )})}
       
       </MapView>
@@ -378,7 +399,7 @@ const AddSpotting = () => {
        <View style={styles.buttonContainer}>
             <Button 
                title="Add My Location" 
-               onPress={addMarkerCurr} 
+               onPress={setCurrLoc} 
                color="#0066cc"
              />
        </View>
