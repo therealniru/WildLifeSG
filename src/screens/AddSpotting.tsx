@@ -300,6 +300,7 @@
 // export default AddSpotting;
 
 import {
+  Alert,
   ActivityIndicator,
   Button,
   Modal,
@@ -308,25 +309,24 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import { useLocation } from '../hooks/useLocation';
 import tw from 'twrnc';
 import { db } from '../../FirebaseConfig';
-import { ref, push, set } from "firebase/database";
-import type { Region } from 'react-native-maps';
+import { ref, push, set, get } from "firebase/database";
 // creating a sighting reference in our firebase database
 const sightingsRef = ref(db, 'sightings');
 
 const AddSpotting = () => {
-  const { location, hasPermission, requestPermission } = useLocation();
+  const { location, hasPermission, requestPermission, getCurrentLocation } = useLocation();
   const [marker, setMarker] = useState<Sighting[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [names, setNames] = useState<string[]>([]);
   const [descs, setDescs] = useState<string[]>([]);
-  const [coords, setCoords] = useState<{ latitude: number; longitude: number } | null>(null); 
+  const [coords, setCoords] = useState<{ latitude: number; longitude: number }>(location); 
   type Sighting = {
       lat: number;
       lng: number;
@@ -334,9 +334,10 @@ const AddSpotting = () => {
       desc: string;
       timeStamp: number
     };
+  console.log(location);
   console.log(hasPermission); 
   // onMapPress to define what happens when someone clicks on a map 
-  const onMapPress = (event) => {
+  const onMapPress = (event: any) => {
     setCoords(event.nativeEvent.coordinate);
     setModalVisible(true);
   }
@@ -370,6 +371,8 @@ const AddSpotting = () => {
     //setMarker([...marker, { coordinate: { latitude: location.latitude, longitude: location.longitude } }]);
     setCoords(location)
   }
+  
+
   return (
     <View style={tw`flex-1`}>
       <MapView

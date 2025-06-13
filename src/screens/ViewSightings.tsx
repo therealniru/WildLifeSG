@@ -210,7 +210,6 @@ import { useLocation } from '../hooks/useLocation';
 import tw from 'twrnc';
 import { db } from '../../FirebaseConfig';
 import { ref, push, set, onValue } from "firebase/database";
-import type { Region } from 'react-native-maps';
 // creating a sighting reference in our firebase database
 const sightingsRef = ref(db, 'sightings');
 
