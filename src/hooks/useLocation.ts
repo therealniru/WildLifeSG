@@ -44,6 +44,6 @@ export const useLocation = () => {
     requestPermission();
   }, [requestPermission]);
 
-  return { location, hasPermission, requestPermission };
+  return { location, hasPermission, requestPermission, getCurrentLocation };
 };
 
