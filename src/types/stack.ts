@@ -4,6 +4,7 @@ type LoggedInStackParamList = {
     Home: undefined;
     AddSpotting: undefined;
     ViewSightings: undefined;
+    UserSightings: undefined;
 };
 // list of screens in the logged in stack
 

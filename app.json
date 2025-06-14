@@ -30,7 +30,7 @@
       ],
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyCB52ExWocCaLzd_9MaUN4O-MemcP5PHWI"
+          "apiKey": "${process.env.GOOGLE_MAPS_API_KEY}"
         }
       }
     },
