@@ -315,6 +315,7 @@ import { useLocation } from '../hooks/useLocation';
 import tw from 'twrnc';
 import { db } from '../../FirebaseConfig';
 import { ref, push, set, get } from "firebase/database";
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
 // creating a sighting reference in our firebase database
 const sightingsRef = ref(db, 'sightings');
 
@@ -332,7 +333,8 @@ const AddSpotting = () => {
       lng: number;
       name: string;
       desc: string;
-      timeStamp: number
+      timeStamp: Number;
+      userId: string;
     };
   console.log(location);
   console.log(hasPermission); 
@@ -343,7 +345,7 @@ const AddSpotting = () => {
   }
   // function to store marker coordinates in the marker array
   const addMarker = () => { 
-    setMarker([...marker, { lat: coords.latitude, lng: coords.longitude, name: name, desc: desc, timeStamp: Date.now() }]);
+    setMarker([...marker, { lat: coords.latitude, lng: coords.longitude, name: name, desc: desc, timeStamp: Date.now(), userId: FIREBASE_AUTH.currentUser?.uid || "" }]);
     setNames([...names, name]);
     setDescs([...descs, desc]);
     console.log("here");
@@ -361,6 +363,7 @@ const AddSpotting = () => {
       name: name,
       desc: desc, 
       timestamp: Date.now(),
+      userId: FIREBASE_AUTH.currentUser?.uid || ""
     });
     setName("");
     setDesc("");
