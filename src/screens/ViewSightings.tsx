@@ -225,11 +225,13 @@ const AddSpotting = () => {
   // const [coords, setCoords] = useState<{ latitude: number; longitude: number } | null>(null); 
   // Deifning a type called Sighting
   type Sighting = {
+      id: string;
       lat: number;
       lng: number;
       name: string;
       desc: string;
-      timeStamp: number
+      timestamp: number;
+      userId: string;
     };
   console.log(hasPermission); 
 
