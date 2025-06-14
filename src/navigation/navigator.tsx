@@ -3,6 +3,7 @@ import Login from '../screens/Login';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import  AddSpotting  from '../screens/AddSpotting';
 import  ViewSightings  from '../screens/ViewSightings';
+import UserSightings from '../screens/UserSightings';
 import type { LoggedInStackParamList, LoggedOutStackParamList } from '../types/stack';
 
 const LoggedInStack = createNativeStackNavigator<LoggedInStackParamList>();
@@ -25,6 +26,7 @@ const LoggedInNavigator = () => {
             <LoggedInStack.Screen name="Home" component={HomeScreen} />  
             <LoggedInStack.Screen name="AddSpotting" component={AddSpotting} options = {{title : "Add Spotting"}}/>
             <LoggedInStack.Screen name="ViewSightings" component={ViewSightings} options = {{title : "View Sightings"}}/>
+            <LoggedInStack.Screen name="UserSightings" component={UserSightings} options = {{title : "User Sightings"}}/>
         </LoggedInStack.Navigator>
     )
 }

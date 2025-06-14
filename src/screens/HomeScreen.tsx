@@ -1,5 +1,5 @@
 import { View, ToastAndroid, ImageBackground, StyleSheet } from 'react-native';
-import Map from '../components/Map';
+//import Map from '../components/Map';
 import ActionButton from '../components/ActionButton';
 import { useLocation } from '../hooks/useLocation';
 import { useLayoutEffect } from 'react';
@@ -49,6 +49,11 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
     navigation.navigate('AddSpotting');
   };
 
+  const handleUserSightings = () => {
+    ToastAndroid.show('Viewing your wildlife spottings...', ToastAndroid.SHORT);
+    navigation.navigate('UserSightings');
+  }
+
   return (
     <ImageBackground
       source={require('../../assets/homepage-bg.png')}
@@ -61,13 +66,18 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
       <View style={tw`absolute bottom-60 left-7 right-7 flex-col space-y-2`}>
         
         <ActionButton
-          title="View Wildlife Spottings"
+          title="View Wildlife Sightings"
           onPress={handleViewSpottings}
           color="#006400"
         />
         <ActionButton
           title="Add New Spotting"
           onPress={handleAddSpotting}
+          color="#006400"
+        />
+        <ActionButton
+          title="User Sightings"
+          onPress={handleUserSightings}
           color="#006400"
         />
       </View>
