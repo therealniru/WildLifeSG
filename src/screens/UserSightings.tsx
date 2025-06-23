@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
 import { useState, useEffect } from 'react';
 import { ref, query, orderByChild, equalTo, get } from 'firebase/database';
 import { FIREBASE_AUTH, db } from '../../FirebaseConfig';
@@ -10,6 +10,7 @@ interface Sighting {
     name: string;
     desc: string;
     timestamp: number;
+    photoUrl?: string;
     userId: string;
 }
 
@@ -43,6 +44,7 @@ const UserSightings = () => {
               name: data.name,
               desc: data.desc,
               timestamp: data.timestamp,
+              photoUrl: data.photoUrl,
               userId: data.userId,
             });
           });
@@ -67,6 +69,13 @@ const UserSightings = () => {
       <Text style={styles.timestamp}>
         {new Date(item.timestamp).toLocaleDateString()}
       </Text>
+      {item.photoUrl && (
+        <Image
+          source={{ uri: item.photoUrl }}
+          style={{ width: '100%', height: 200, borderRadius: 12, marginTop: 8 }}
+          resizeMode="cover"
+        />
+      )}
     </View>
   );
 
