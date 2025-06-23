@@ -37,4 +37,4 @@ const Map = ({ location, hasPermission }: MapProps) => {
   );
 };
 
-export default Map;
+//export default Map;
