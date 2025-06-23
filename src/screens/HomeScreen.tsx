@@ -2,17 +2,23 @@ import { View, ToastAndroid, ImageBackground, StyleSheet } from 'react-native';
 //import Map from '../components/Map';
 import ActionButton from '../components/ActionButton';
 import { useLocation } from '../hooks/useLocation';
-import { useLayoutEffect } from 'react';
+import { use, useLayoutEffect } from 'react';
 import { Button } from 'react-native';
-
 import tw from 'twrnc';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { LoggedInStackParamList } from '../types/stack';  // import the type for the navigation stack params
 
-import type { HomeScreenProps } from '../types/stack';
+
+type HomeScreenProps = NativeStackScreenProps<LoggedInStackParamList, 'Home'>;  
+// providing a type for navigation prop in HomeScreen component (since we are using typescript)
+// this is used in HomeScreen.tsx to destructure navigation from props
 
 //destructures 1st field (navigation) from props as navigation
 const HomeScreen = ( {navigation} : HomeScreenProps) => {  
   const { location, hasPermission, requestPermission } = useLocation();
+
+  //const userLocation = useSelfLocation();   // called here to avid delay in AddSpotting screen
   const auth = FIREBASE_AUTH;
 
   useLayoutEffect(() => {
