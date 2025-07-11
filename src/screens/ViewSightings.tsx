@@ -4,6 +4,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../FirebaseConfig';
 import { useLocation } from '../hooks/useLocation';
+import DisplayModal from '../components/DisplayModal';
 
 interface Sighting {
   id: string;
@@ -71,8 +72,8 @@ const ViewSightings = () => {
           />
         ))}
       </MapView>
-
-      <Modal
+      {/* Old Version of Modal for displaying selected sighting details */}
+      {/* <Modal
         visible={!!selectedSighting}
         transparent
         animationType="fade"
@@ -96,7 +97,15 @@ const ViewSightings = () => {
             )}
           </View>
         </TouchableOpacity>
-      </Modal>
+      </Modal> */}
+      {/* importing DisplayModal Component*/}
+      {selectedSighting && (
+        <DisplayModal
+          visible={!!selectedSighting}
+          sighting={selectedSighting}
+          onClose={() => setSelectedSighting(null)}
+        />
+      )}
     </View>
   );
 };
