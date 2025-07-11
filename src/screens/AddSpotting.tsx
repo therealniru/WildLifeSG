@@ -4,8 +4,19 @@ import MapView, { Marker } from 'react-native-maps';
 import { ref, push, set } from 'firebase/database';
 import { FIREBASE_AUTH, db } from '../../FirebaseConfig';
 import { useImagePicker } from '../hooks/useImagePicker';
-import * as Location from 'expo-location';
+//import * as Location from 'expo-location';
 import { useLocation } from '../hooks/useLocation';
+import DisplayModal from '../components/DisplayModal';
+
+interface Sighting {
+  id: string;
+  name: string;
+  desc: string;
+  lat: number;
+  lng: number;
+  photoUrl: string;
+  timestamp: number;
+}
 
 const AddSpotting = () => {
   // Modal visibility, form fields, and marker coordinates
@@ -13,6 +24,8 @@ const AddSpotting = () => {
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [sightings, setSightings] = useState<Sighting[]>([]);
+  const [selectedSighting, setSelectedSighting] = useState<Sighting | null>(null);
   //const [location, setLocation] = useState<any>(null);
 
   // Request location permission and get current location on mount
@@ -55,6 +68,18 @@ const AddSpotting = () => {
         photoUrl: photoUri, // Store the base64 image string
         timestamp: Date.now(),
       });
+      setSightings((prev) => [
+        ...prev,
+        {
+          id: newSightingRef.key || '',
+          name,
+          desc,
+          lat: coords.lat,
+          lng: coords.lng,
+          photoUrl: photoUri,
+          timestamp: Date.now(),
+        },
+      ]);
       // Reset form and state
       setModalVisible(false);
       setName('');
@@ -82,6 +107,13 @@ const AddSpotting = () => {
         {coords && (
           <Marker coordinate={{ latitude: coords.lat, longitude: coords.lng }} />
         )}
+        {sightings.map(sighting => (
+          <Marker
+            key={sighting.id}
+            coordinate={{ latitude: sighting.lat, longitude: sighting.lng }}
+            onPress={() => setSelectedSighting(sighting)}
+          />
+        ))}
       </MapView>
       {/* Modal for entering sighting details and picking/taking a photo */}
       <Modal
@@ -131,6 +163,14 @@ const AddSpotting = () => {
           </View>
         </View>
       </Modal>
+      {/* Display modal for selected sighting details */}
+      {selectedSighting && (
+        <DisplayModal
+          visible={!!selectedSighting}
+          sighting={selectedSighting}
+          onClose={() => setSelectedSighting(null)}
+        />
+      )}
     </View>
   );
 };
