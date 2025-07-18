@@ -1,6 +1,51 @@
-import { View, Text, Image, StyleSheet, Modal, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Text, Image, StyleSheet, Modal, TouchableOpacity, Dimensions, ActivityIndicator, Button } from 'react-native';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 const { width } = Dimensions.get('window');
-const DisplayModal = ({sighting, visible, onClose}) => {
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
+import {useEffect, useState} from 'react';
+import EditModal from './EditModal';
+
+//const user = FIREBASE_AUTH.currentUser;
+
+interface Sighting {
+  id: string;
+  name: string;
+  desc: string;
+  lat: number;
+  lng: number;
+  photoUrl: string;
+  timestamp: number;
+  userId: string;
+}
+
+
+
+const DisplayModal = ({sighting, visible, onClose}: any) => {
+  const [currUserId, setCurrUserId] = useState<string | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  
+  const openEditModal = () => {
+    setModalVisible(true);
+  }
+
+  const closeEditModal = () => {
+    setModalVisible(false);
+  }
+
+  // getting the current user's ID
+  useEffect(() => {
+    const auth = getAuth();
+    const stopListening = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrUserId(user.uid);
+      }
+    });
+    return stopListening;
+    }, []);
+
+  console.log("Current user ID:", currUserId, "Sighting user ID:", sighting?.userId);
+
+  if (currUserId !== sighting.userId) {
     return (
         <Modal
             visible={visible}
@@ -27,8 +72,41 @@ const DisplayModal = ({sighting, visible, onClose}) => {
               </View>
             </TouchableOpacity>
           </Modal>
-    );
+    );} else {
+      return (
+        <Modal
+            visible={visible}
+            transparent
+            animationType="fade"
+            onRequestClose={onClose}
+          >
+            <TouchableOpacity
+              style={styles.modalBackdrop}
+              activeOpacity={1}
+              onPressOut={onClose}
+            >
+              <View style={styles.modalContent}>
+                {sighting && (
+                  <>
+                    <Image
+                      source={{ uri: sighting.photoUrl }}
+                      style={styles.modalImage}
+                    />
+                    <Text style={styles.modalTitle}>{sighting.name}</Text>
+                    <Text style={styles.modalDesc}>{sighting.desc}</Text>
+                  </>
+                )}
+                <Button title = "edit" onPress ={openEditModal}/>
+                <EditModal visible ={modalVisible} onClose={closeEditModal} sighting={sighting}/>
+                <Button title = "delete" onPress ={()=>{}}/>
+              </View>
+            </TouchableOpacity>
+          </Modal>
+        )
+      }
 }
+
+
 
 const styles = StyleSheet.create({
   modalBackdrop: {

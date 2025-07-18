@@ -16,6 +16,7 @@ interface Sighting {
   lng: number;
   photoUrl: string;
   timestamp: number;
+  userId: string;
 }
 
 const AddSpotting = () => {
@@ -78,8 +79,10 @@ const AddSpotting = () => {
           lng: coords.lng,
           photoUrl: photoUri,
           timestamp: Date.now(),
+          userId: user.uid,
         },
       ]);
+      console.log('Sighting added:', sightings);
       // Reset form and state
       setModalVisible(false);
       setName('');
