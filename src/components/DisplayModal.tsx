@@ -4,6 +4,8 @@ const { width } = Dimensions.get('window');
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import {useEffect, useState} from 'react';
 import EditModal from './EditModal';
+import DeleteModal from './DeleteModal';
+import { set } from 'firebase/database';
 
 //const user = FIREBASE_AUTH.currentUser;
 
@@ -22,14 +24,30 @@ interface Sighting {
 
 const DisplayModal = ({sighting, visible, onClose}: any) => {
   const [currUserId, setCurrUserId] = useState<string | null>(null);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [displayModalVisible, setDisplayModalVisible] = useState(visible);
   
   const openEditModal = () => {
-    setModalVisible(true);
+    setEditModalVisible(true);
+    setDisplayModalVisible(false);
   }
 
   const closeEditModal = () => {
-    setModalVisible(false);
+    setEditModalVisible(false);
+  }
+
+   const openDeleteModal = () => {
+    setDeleteModalVisible(true);
+  }
+
+  const closeDeleteModal = () => {
+    setDeleteModalVisible(false);
+  }
+
+  const closeDisplayModal = () => {
+    setDisplayModalVisible(false);
+    onClose();
   }
 
   // getting the current user's ID
@@ -45,10 +63,12 @@ const DisplayModal = ({sighting, visible, onClose}: any) => {
 
   console.log("Current user ID:", currUserId, "Sighting user ID:", sighting?.userId);
 
+  // Display Option to edit based on whether it is the user's own sighting
+
   if (currUserId !== sighting.userId) {
     return (
         <Modal
-            visible={visible}
+            visible={displayModalVisible}
             transparent
             animationType="fade"
             onRequestClose={onClose}
@@ -97,8 +117,9 @@ const DisplayModal = ({sighting, visible, onClose}: any) => {
                   </>
                 )}
                 <Button title = "edit" onPress ={openEditModal}/>
-                <EditModal visible ={modalVisible} onClose={closeEditModal} sighting={sighting}/>
-                <Button title = "delete" onPress ={()=>{}}/>
+                <EditModal visible ={editModalVisible} onClose={() => {closeEditModal(); closeDisplayModal()}} sighting={sighting}/>
+                <Button title = "delete" onPress ={openDeleteModal}/>
+                <DeleteModal visible = {deleteModalVisible} onClose = {() => {closeDeleteModal(); closeDisplayModal()}} sighting = {sighting}/>
               </View>
             </TouchableOpacity>
           </Modal>
