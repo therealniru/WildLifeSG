@@ -19,9 +19,6 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
     
     const [name, setName] = useState(sighting.name);
     const [desc, setDesc] = useState(sighting.desc);
-    //const [coords, setCoords] = useState<{ lat: number; lng: number } | null>({ lat: sighting.lat, lng: sighting.lng });
-    const [sightings, setSightings] = useState<Sighting[]>([]);
-
     // Use the custom image picker hook
     const { photoUri, pickImage, takePhoto, clearPhoto } = useImagePicker();
     const editSighting = async () => {
@@ -47,10 +44,7 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
         //console.log("here is the edited sighting:", editedSightingRef);
         //console.log('Sighting added:', sightings);
         // Reset form and state
-        onClose();
-        setName('');
-        setDesc('');
-        //setCoords(null);
+        onClose("edit");
         clearPhoto();
         ToastAndroid.show('Edited Sighting!', ToastAndroid.SHORT);
     };
@@ -61,9 +55,8 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
             transparent
             animationType="slide"
             onRequestClose={() => {
-                onClose();
+                onClose("go back");
                 clearPhoto();
-                //setCoords(null);
             }}
               >
                 <View style={styles.backdrop}>
@@ -85,19 +78,18 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
                       style={styles.input}
                     />
                     <TextInput
-                      placeholder="Description/Location"
+                      placeholder="Description/Landmark"
                       value={desc}
                       onChangeText={setDesc}
                       style={styles.input}
                     />
                     {/* Add and Cancel buttons */}
-                    <Button title="Edit Sighting" onPress={editSighting} />
+                    <Button title="Edit Sighting" onPress={editSighting}/>
                     <Button
                       title="Cancel"
                       onPress={() => {
-                        onClose();
+                        onClose('cancel');
                         clearPhoto();
-                        //setCoords(null);
                       }}
                     />
                   </View>
@@ -118,6 +110,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     width: '90%',
+    gap: 10,
   },
   input: {
     borderWidth: 1,

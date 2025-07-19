@@ -13,7 +13,7 @@ const DeleteModal = ({ visible, onClose, sighting }: any) => {
         // Alert the user
         ToastAndroid.show('Deleted Sighting!', ToastAndroid.SHORT);
         // close the Modal
-        onClose();
+        onClose('delete');
     }
 
     return (
@@ -21,7 +21,7 @@ const DeleteModal = ({ visible, onClose, sighting }: any) => {
             visible={visible}
             transparent
             animationType="slide"
-            onRequestClose={onClose}
+            onRequestClose={() => onClose('go back')}
         >
             <View style={styles.backdrop}>
                 <View style={styles.modal}>
@@ -30,7 +30,7 @@ const DeleteModal = ({ visible, onClose, sighting }: any) => {
                     <Button title = "Yes" onPress = {deleteSighting} />
                     <Button
                       title = "No"
-                      onPress={onClose}
+                      onPress={() => onClose('no')}
                     />
                 </View>
             </View>
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     width: '90%',
+    gap: 10,
   },
   question: {
     fontWeight: 'bold',
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 10,
     borderRadius: 5,
-  }
+  },
 });
 
 export default DeleteModal;
