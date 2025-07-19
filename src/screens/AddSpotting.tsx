@@ -105,12 +105,13 @@ const AddSpotting = () => {
         showsUserLocation={true}
         initialRegion={location}
         provider = "google"
-      >
+      > 
         {/* Show marker if coordinates are selected */}
         {coords && (
           <Marker coordinate={{ latitude: coords.lat, longitude: coords.lng }} />
         )}
         {sightings.map(sighting => (
+          console.log("Rendering marker: ", sighting.lat, sighting.lng),
           <Marker
             key={sighting.id}
             coordinate={{ latitude: sighting.lat, longitude: sighting.lng }}
@@ -148,13 +149,14 @@ const AddSpotting = () => {
               style={styles.input}
             />
             <TextInput
-              placeholder="Description/Location"
+              placeholder="Description/Landmark"
               value={desc}
               onChangeText={setDesc}
               style={styles.input}
             />
             {/* Add and Cancel buttons */}
             <Button title="Add Sighting" onPress={addMarker} />
+            {/*space between*/}
             <Button
               title="Cancel"
               onPress={() => {
