@@ -14,11 +14,13 @@ interface Sighting {
   lng: number;
   photoUrl: string;
   timestamp: number;
+  userId: string;
 }
 
 const { width } = Dimensions.get('window');
 
 const ViewSightings = () => {
+  console.log("ViewSightings component rendered");
   const [sightings, setSightings] = useState<Sighting[]>([]);
   const [selectedSighting, setSelectedSighting] = useState<Sighting | null>(null);
 
@@ -32,6 +34,7 @@ const ViewSightings = () => {
       const loadedSightings: Sighting[] = [];
       if (data) {
         Object.entries(data).forEach(([id, value]: [string, any]) => {
+          console.log("Loading sighting:", id, value.lat, value.lng);
           loadedSightings.push({
             id,
             name: value.name,
@@ -40,10 +43,12 @@ const ViewSightings = () => {
             lng: value.lng,
             photoUrl: value.photoUrl,
             timestamp: value.timestamp,
+            userId: value.userId,
           });
         });
       }
       setSightings(loadedSightings);
+      //console.log("Sightings loaded:", loadedSightings);
     });
     return () => unsubscribe();
   }, []);
@@ -65,6 +70,7 @@ const ViewSightings = () => {
         provider="google"
       >
         {sightings.map(sighting => (
+          console.log("Rendering marker for sighting:", sighting.lat, sighting.lng),
           <Marker
             key={sighting.id}
             coordinate={{ latitude: sighting.lat, longitude: sighting.lng }}
