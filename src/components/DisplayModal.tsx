@@ -129,9 +129,11 @@ const DisplayModal = ({sighting, visible, onClose}: any) => {
                     <Text style={styles.modalDesc}>{displaySighting.desc}</Text>
                   </>
                 )}
-                <Button title = "edit" onPress = {openEditModal}/>
+                <View style={styles.buttonContainer}>
+                  <Button title = "edit" onPress = {openEditModal}/>
+                  <Button title = "delete" onPress ={openDeleteModal}/>
+                </View>
                 <EditModal visible ={editModalVisible} onClose={closeEditModal} sighting = {displaySighting}/>
-                <Button title = "delete" onPress ={openDeleteModal}/>
                 <DeleteModal visible = {deleteModalVisible} onClose = {closeDeleteModal} sighting = {displaySighting}/>
               </View>
             </TouchableOpacity>
@@ -174,6 +176,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#555',
     textAlign: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 70,
+    gap: 15,
   },
 });
 
