@@ -65,9 +65,12 @@ const UserSightings = () => {
   const renderSighting = ({ item }: { item: Sighting }) => (
     <View style={styles.sightingCard}>
       <Text style={styles.species}>{item.name}</Text>
-      <Text style={styles.location}>{item.desc}</Text>
+      <Text style={styles.desc}>{item.desc}</Text>
       <Text style={styles.timestamp}>
-        {new Date(item.timestamp).toLocaleDateString()}
+        Date:            {new Date(item.timestamp).toLocaleDateString()}
+      </Text>
+      <Text style={styles.location}>
+        Location:    {item.lat.toFixed(4)}, {item.lng.toFixed(4)}
       </Text>
       {item.photoUrl && (
         <Image
@@ -129,14 +132,22 @@ const styles = StyleSheet.create({
     color: '#2c3e50',
     marginBottom: 4,
   },
-  location: {
+  desc: {
     fontSize: 16,
-    color: '#7f8c8d',
+    color: '#555',
+    marginBottom: 4,
+  },
+  location: {
+    fontSize: 15,
+    color: '#95a5a6',
+    fontStyle: 'italic',
     marginBottom: 4,
   },
   timestamp: {
-    fontSize: 14,
+    fontSize: 15,
     color: '#95a5a6',
+    fontStyle: 'italic',
+    marginBottom: 4,
   },
   noSightings: {
     textAlign: 'center',
