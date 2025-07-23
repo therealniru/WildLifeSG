@@ -150,6 +150,68 @@ const ViewSightings = () => {
 
   return (
     <View style={{ flex: 1 }}>
+      { /* Filter Toggle Button */}
+      <TouchableOpacity
+        style={styles.filterToggle}
+        onPress={() => setShowFilters(!showFilters)}
+      >
+        <Text style={styles.filterToggleText}>
+          {showFilters ? 'Hide Filters' : 'Show Filters'}
+        </Text>  
+      </TouchableOpacity>
+
+      {/* Filter Panel */}
+      { showFilters && (
+        <View style={styles.filterPanel}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {/* Species Filter */}
+            <View style={styles.filterItem}>
+              <Text style={styles.filterLabel}>Species:</Text>
+              <TextInput
+                style={styles.filterInput}
+                placeholder="Enter Species Name"
+                value={speciesFilter}
+                onChangeText={setSpeciesFilter}
+              />
+            </View>
+
+            {/* Date Filter */}
+            <View style={styles.filterItem}>
+              <Text style={styles.filterLabel}>Date (yyyy-mm-dd):</Text>
+              <TextInput
+                style={styles.filterInput}
+                placeholder="2025-01-01"
+                value={dateFilter}
+                onChangeText={setDateFilter}
+              />
+            </View>
+
+            {/* Location Filter */}
+            <View style={styles.filterItem}>
+              
+              <TouchableOpacity
+                style={[
+                  styles.locationFilterButton,
+                  isLocationFilterActive && styles.locationFilterActive
+                ]}
+                onPress={() => setIsLocationFilterActive(!isLocationFilterActive)}
+              >
+                <Text style={styles.locationFilterText}>
+                  {isLocationFilterActive ? "Tap map to set location" : "Enable location filter"}
+                </Text>
+              </TouchableOpacity>
+              
+              {/* Clear Filters - positioned below location filter */}
+              <TouchableOpacity style={styles.clearButton} onPress={clearFilters}>
+                <Text style={styles.clearButtonText}>Clear All</Text>
+              </TouchableOpacity>
+
+            </View>
+
+          </ScrollView>
+        </View>
+      )}
+
       <MapView
         style={{ flex: 1 }}
         initialRegion={location}
@@ -190,6 +252,69 @@ const ViewSightings = () => {
 };
 
 const styles = StyleSheet.create({
+  filterToggle: {
+    backgroundColor: '#007AFF',
+    padding: 12,
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  filterToggleText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  filterPanel: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    zIndex: 1,
+  },
+  filterItem: {
+    marginRight: 15,
+    minWidth: 120,
+  },
+  filterLabel: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: '#333',
+  },
+  filterInput: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    padding: 8,
+    borderRadius: 5,
+    fontSize: 14,
+    backgroundColor: 'white',
+  },
+  locationFilterButton: {
+    backgroundColor: '#f0f0f0',
+    padding: 8,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  locationFilterActive: {
+    backgroundColor: '#007AFF',
+  },
+  locationFilterText: {
+    fontSize: 12,
+    textAlign: 'center',
+    color: '#333',
+  },
+  clearButton: {
+    backgroundColor: '#ff4444',
+    padding: 8,
+    borderRadius: 5,
+    marginTop: 8,
+  },
+  clearButtonText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
   modalBackdrop: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.35)',
