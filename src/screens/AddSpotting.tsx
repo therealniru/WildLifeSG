@@ -155,16 +155,17 @@ const AddSpotting = () => {
               style={styles.input}
             />
             {/* Add and Cancel buttons */}
-            <Button title="Add Sighting" onPress={addMarker} />
-            {/*space between*/}
-            <Button
-              title="Cancel"
-              onPress={() => {
-                setModalVisible(false);
-                clearPhoto();
-                setCoords(null);
-              }}
-            />
+            <View style={styles.buttonContainer}>
+              <Button title="Add Sighting" onPress={addMarker} />
+              <Button
+                title="Cancel"
+                onPress={() => {
+                  setModalVisible(false);
+                  clearPhoto();
+                  setCoords(null);
+                }}
+              />
+            </View>
           </View>
         </View>
       </Modal>
@@ -205,6 +206,9 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 8,
     marginBottom: 10,
+  },
+  buttonContainer: {
+    gap: 10,
   },
 });
 
