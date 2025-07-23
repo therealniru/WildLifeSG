@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TextInput, ActivityIndicator, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, ActivityIndicator, TouchableOpacity, KeyboardAvoidingView, ImageBackground } from 'react-native';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import tw from 'twrnc';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
@@ -52,13 +52,17 @@ const signUp = async () => {
 }
     
 return (
-        <View style={tw`flex-1 justify-center items-center bg-white`}>
+    <ImageBackground
+      source={require('../../assets/homepage-bg.png')}
+      style={tw`flex-1`}
+      resizeMode="stretch">
+        <View style={tw`flex-1 justify-center items-center`}>
             <KeyboardAvoidingView behavior="padding" style={tw`w-full h-full justify-center items-center`}>
         
-                <TextInput style={tw`border border-gray-300 rounded p-2 w-80 mb-4`}
+                <TextInput style={tw`border border-gray-300 rounded p-2 w-80 mb-4 bg-white`}
                 placeholder = "Email address" autoCapitalize='none' onChange={(e) => setEmail(e.nativeEvent.text)} value={email} 
                 />
-                <TextInput style={tw`border border-gray-300 rounded p-2 w-80 mb-4`}
+                <TextInput style={tw`border border-gray-300 rounded p-2 w-80 mb-4 bg-white`}
                 placeholder = "Password" autoCapitalize = 'none' onChange = {(e) => setPassword(e.nativeEvent.text)} value={password} 
                 secureTextEntry/>
 
@@ -79,6 +83,7 @@ return (
                 )}       
             </KeyboardAvoidingView>
         </View>
+        </ImageBackground>
     );
 }
 
