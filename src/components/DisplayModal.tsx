@@ -100,6 +100,12 @@ const DisplayModal = ({sighting, visible, onClose}: any) => {
                     />
                     <Text style={styles.modalTitle}>{displaySighting.name}</Text>
                     <Text style={styles.modalDesc}>{displaySighting.desc}</Text>
+                    <Text style={styles.timestamp}>
+                            Date:     {new Date(displaySighting.timestamp).toLocaleDateString()}
+                    </Text>
+                    <Text style={styles.modalLocation}>
+                            Location:    {displaySighting.lat?.toFixed(4)}, {displaySighting.lng?.toFixed(4)}
+                    </Text>
                   </>
                 )}
               </View>
@@ -127,6 +133,12 @@ const DisplayModal = ({sighting, visible, onClose}: any) => {
                     />
                     <Text style={styles.modalTitle}>{displaySighting.name}</Text>
                     <Text style={styles.modalDesc}>{displaySighting.desc}</Text>
+                    <Text style={styles.timestamp}>
+                            Date:     {new Date(displaySighting.timestamp).toLocaleDateString()}
+                    </Text>
+                    <Text style={styles.modalLocation}>
+                            Location:     {displaySighting.lat?.toFixed(4)}, {displaySighting.lng?.toFixed(4)}
+                    </Text>
                   </>
                 )}
                 <View style={styles.buttonContainer}>
@@ -164,18 +176,30 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 150,
     borderRadius: 8,
-    marginBottom: 12,
+    marginBottom: 2,
   },
   modalTitle: {
     fontWeight: 'bold',
     fontSize: 18,
-    marginBottom: 6,
+    marginBottom: -3,
     textAlign: 'center',
   },
   modalDesc: {
     fontSize: 15,
     color: '#555',
     textAlign: 'center',
+  },
+  timestamp: {
+    fontSize: 14,
+    color: '#777',
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
+  modalLocation: {
+    fontSize: 14,
+    color: '#777',
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
   buttonContainer: {
     flexDirection: 'row',
