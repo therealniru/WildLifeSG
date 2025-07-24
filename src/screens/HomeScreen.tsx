@@ -62,7 +62,7 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/homepage-bg.png')}
+      source={require('../../assets/orbital_poster (2).png')}
       style={tw`flex-1`}
       resizeMode="stretch">
     <View style={tw`flex-1`}>
