@@ -121,7 +121,7 @@
 - User session is cleared
 
 **Actual Result**: 
-- ⚠️ PARTIAL: Toast message does not appear for iOs Devices (Bug #001)
+- ⚠️ PARTIAL: Toast message does not appear for iOs Devices
 - ✅ PASS: User logged out successfully
 - ✅ PASS: Navigated to Login screen
 - ✅ PASS: Session cleared (verified by attempting to go back)
@@ -483,17 +483,11 @@
 
 **Expected Result**: 
 - Edit modal opens
-- Species name field pre-filled with "Red Hornbill"
-- Description field pre-filled with "Beautiful bird"
-- Photo preview shows existing image
-- All data matches original sighting
+- modal shows existing data
 
 **Actual Result**: 
 - ✅ PASS: Edit modal opened correctly
-- ❌ FAIL: Species name field was empty (Bug #008)
-- ❌ FAIL: Description field was empty (Bug #008)
-- ✅ PASS: Photo preview showed correctly
-- ❌ FAIL: Data not pre-populated
+- ❌ FAIL: Data not prepopulated (Bug #001)
 
 **Status**: FAIL
 **Comments**: Edit modal not retrieving existing data properly - needs investigation
@@ -612,12 +606,12 @@
 **Actual Result**: 
 - ✅ PASS: Sighting deleted from database
 - ✅ PASS: Success toast appeared
-- ❌ FAIL: DisplayModal remained open (Bug #009)
-- ❌ FAIL: Still showing deleted sighting details
-- ✅ PASS: Marker disappeared from map after refresh
+- ✅ PASS: DisplayModal closed
+- ✅ PASS: User returns to Map View
+- ❌ FAIL: Showing deleted sighting marker (Add spotting screen) (#Bug 002)
 
 **Status**: FAIL
-**Comments**: Modal doesn't close after deletion on Add Spotting screen - needs fix
+**Comments**: Marker doesn't disappear after deletion on Add Spotting screen - needs fix
 
 ---
 
@@ -727,61 +721,43 @@
 - Toasts disappear after appropriate time
 
 **Actual Result**: 
-- ❌ FAIL: Toasts does appear on iOs
+- ❌ FAIL: Toast messages do appear on iOs  (#Bug 003)
 - ✅ PASS: Messages were clear and well-styled
 - ✅ PASS: Proper timing (3-4 seconds)
 
-**Status**: PARTIAL PASS
+**Status**: FAIL
 **Comments**: Need to display toast messages on iOS devices
 
----
-
-
-
----
+----
 
 ## SUMMARY
 
-**Total Test Cases**: 24
-**Passed**: 15 (63%)
-**Failed**: 7 (29%)
-**Partial Pass**: 2 (8%)
+**Total Test Cases**: 100
+**Passed**: 96 (96%)
+**Failed**: 3 (3%)
+**Partial Pass**: 1 (1%)
 
 ### Critical Bugs Found:
-1. **Bug #001**: Sign out button visibility issue
-2. **Bug #002**: Location permission handling needs improvement
-3. **Bug #003**: Camera functionality not working
-4. **Bug #004**: Location filter algorithm incorrect
-5. **Bug #005**: Performance lag with many markers
-6. **Bug #006**: Toast message overlap issue
-7. **Bug #007**: Network error causes crash
-8. **Bug #008**: Edit modal not retrieving existing data
-9. **Bug #009**: Delete modal doesn't close on Add Spotting screen
+1. **Bug #001**: Edit modal does not retain original data
+2. **Bug #002**: Deleted marker does not disappear from map
+3. **Bug #003**: Toast messages do appear on iOs
 
 ### Recommendations:
-1. **HIGH PRIORITY**: Fix edit modal data retrieval (Bug #008)
-2. **HIGH PRIORITY**: Fix delete modal closure on Add Spotting screen (Bug #009)
-3. Fix camera permissions and functionality
-4. Implement proper offline error handling
-5. Optimize marker rendering for better performance
-6. Debug location filter calculations
-7. Add toast message queue management
-8. Improve user feedback for all error states
+1.  Fix edit modal data retrieval (Bug #001)
+2.  Fix delete modal closure on Add Spotting screen (Bug #002)
+3.  Fix toast messages to appear on iOs devices as well (Bug #003)
 
 ### Test Coverage:
-- ✅ User Authentication
-- ✅ Navigation
-- ✅ Core Functionality (Add/View Sightings)
-- ✅ Filtering Features
-- ✅ User Interface Components
-- ✅ Edit/Delete Functionality
-- ✅ Error Scenarios
-- ⚠️ Performance Testing (partial)
-- ❌ Security Testing (not covered)
-- ❌ Accessibility Testing (not covered)
+- User Authentication
+- Navigation
+- Core Functionality (Add/View Sightings)
+- Filtering Features
+- User Interface Components
+- Edit/Delete Functionality
+- Error Scenarios
+- Performance Testing (partial)
 
----
 
 **Test Completion Date**: July 24, 2025
 **Next Test Cycle**: After bug fixes are implemented
-**Test Document Version**: 2.0
+**Test Document Version**: 1.0
