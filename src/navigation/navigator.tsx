@@ -47,7 +47,7 @@ const LoggedOutNavigator = () => {
                     fontWeight: 'bold',
                 },
             }}>
-            <LoggedOutStack.Screen name="Login" component={Login} />
+            <LoggedOutStack.Screen name="Login" component={Login}/>
         </LoggedOutStack.Navigator>
     )
 }
