@@ -35,8 +35,19 @@ const LoggedInNavigator = () => {
 
 const LoggedOutNavigator = () => {
     return (
-        <LoggedOutStack.Navigator>
-            <LoggedOutStack.Screen name="Login" component={Login} />
+        <LoggedOutStack.Navigator
+        screenOptions={{
+                headerShown: true,
+                headerTitleAlign: 'center',
+                headerStyle: {
+                    backgroundColor: '#006400',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                },
+            }}>
+            <LoggedOutStack.Screen name="Login" component={Login}/>
         </LoggedOutStack.Navigator>
     )
 }

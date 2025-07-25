@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TextInput, ActivityIndicator, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { ScrollView, View, Text, TextInput, ActivityIndicator, TouchableOpacity, KeyboardAvoidingView, ImageBackground } from 'react-native';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import tw from 'twrnc';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
@@ -52,33 +52,42 @@ const signUp = async () => {
 }
     
 return (
-        <View style={tw`flex-1 justify-center items-center bg-white`}>
+    <ImageBackground
+      source={require('../../assets/orbital_poster (3).png')}
+      style={tw`flex-1`}
+      resizeMode="stretch">
+        <View style={tw`flex-1 justify-center items-center`}>
+            <Text style = {tw`text-6xl font-bold mb-1 text-white`}>SGWildlife</Text>
+            <Text style = {tw`text-sm mb--40 text-white`}>Let's Take Wildlife Spotting To The Next Level</Text>
             <KeyboardAvoidingView behavior="padding" style={tw`w-full h-full justify-center items-center`}>
-        
-                <TextInput style={tw`border border-gray-300 rounded p-2 w-80 mb-4`}
+                {/* Added a box around login to make it look more aesthetic*/}
+                <View style={tw`flex-col items-center bg-[#e8eac5] rounded-2xl p-4 w-80`}>
+                <Text style={tw`text-2xl font-bold mb-4 text-green-800`}>Login/Sign up</Text>    
+                <TextInput style={tw`border border-gray-300 rounded-lg p-2 w-60 mb-4 bg-white`}
                 placeholder = "Email address" autoCapitalize='none' onChange={(e) => setEmail(e.nativeEvent.text)} value={email} 
                 />
-                <TextInput style={tw`border border-gray-300 rounded p-2 w-80 mb-4`}
+                <TextInput style={tw`border border-gray-300 rounded-lg p-2 w-60 mb-4 bg-white`}
                 placeholder = "Password" autoCapitalize = 'none' onChange = {(e) => setPassword(e.nativeEvent.text)} value={password} 
                 secureTextEntry/>
-
                 {error ? ( <Text style={tw`text-red-500 mb-4`}>{error}</Text> ) : null}   
                 
                 {Loading ? ( <ActivityIndicator size='large' color="0000ff" /> )    // conditional rendering based on loading state
                 : (
                         // JSX expressions must have one parent element.
                 <> 
-                    <TouchableOpacity style={tw`bg-blue-500 rounded p-2 w-80 mb-4`} onPress={signIn}>
+                    <TouchableOpacity style={tw`bg-green-800 rounded p-2 w-20 mb-2`} onPress={signIn}>
                         <Text style={tw`text-white text-center`}>Login</Text>
                     </TouchableOpacity>
-                    
-                    <TouchableOpacity style={tw`bg-blue-500 rounded p-2 w-80 mb-4`} onPress={signUp}>
+                    <Text style={tw`text-sm mb-1 text-green-800`}>Don't have an account?</Text>
+                    <TouchableOpacity style={tw`bg-green-800 rounded p-2 w-20 mb-4`} onPress={signUp}>
                         <Text style={tw`text-white text-center`}>Sign Up</Text>
                     </TouchableOpacity>
                 </>
-                )}       
+                )}
+                </View>       
             </KeyboardAvoidingView>
         </View>
+        </ImageBackground>
     );
 }
 
