@@ -7,6 +7,7 @@ import { useImagePicker } from '../hooks/useImagePicker';
 //import * as Location from 'expo-location';
 import { useLocation } from '../hooks/useLocation';
 import DisplayModal from '../components/DisplayModal';
+import Toast from 'react-native-toast-message';
 
 interface Sighting {
   id: string;
@@ -48,14 +49,26 @@ const AddSpotting = () => {
   const addMarker = async () => {
     // Validate all fields
     if (!coords || !photoUri || !name || !desc) {
-      ToastAndroid.show('Please fill in all fields and add a photo', ToastAndroid.SHORT);
+      //ToastAndroid.show('Please fill in all fields and add a photo', ToastAndroid.SHORT);
+      Toast.show({
+          type: "info",
+          text1: 'Please fill in all fields and add a photo',
+          position: "bottom",
+          visibilityTime: 2000
+        })
       return;
     }
     try {
       // Get the current user
       const user = FIREBASE_AUTH.currentUser;
       if (!user) {
-        ToastAndroid.show('You must be logged in to add a sighting', ToastAndroid.SHORT);
+        //ToastAndroid.show('You must be logged in to add a sighting', ToastAndroid.SHORT);
+        Toast.show({
+          type: "info",
+          text1: 'You must be logged in to add a sighting',
+          position: "bottom",
+          visibilityTime: 2000
+        })
         return;
       }
       // Push the new sighting to the database
@@ -89,10 +102,22 @@ const AddSpotting = () => {
       setDesc('');
       setCoords(null);
       clearPhoto();
-      ToastAndroid.show('Sighting added!', ToastAndroid.SHORT);
+      //ToastAndroid.show('Sighting added!', ToastAndroid.SHORT);
+      Toast.show({
+          type: "info",
+          text1: 'Sighting added!',
+          position: "bottom",
+          visibilityTime: 2000
+        })
     } catch (error) {
       console.error('Error adding sighting:', error);
-      ToastAndroid.show('Failed to add sighting', ToastAndroid.SHORT);
+      //ToastAndroid.show('Failed to add sighting', ToastAndroid.SHORT);
+      Toast.show({
+          type: "info",
+          text1: 'Failed to add sighting',
+          position: "bottom",
+          visibilityTime: 2000
+        })
     }
   };
 
@@ -181,6 +206,7 @@ const AddSpotting = () => {
   );
 };
 
+//did not use tailwind css so the code soes not become too verbose
 const styles = StyleSheet.create({
   backdrop: {
     flex: 1,
