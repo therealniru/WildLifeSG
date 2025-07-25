@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Text, View, Button, TextInput, Modal, Image, StyleSheet, ToastAndroid } from 'react-native';
 import { ref, remove } from 'firebase/database';
 import { FIREBASE_AUTH, db } from '../../FirebaseConfig';
+import Toast from 'react-native-toast-message';
 
 
 const DeleteModal = ({ visible, onClose, sighting }: any) => { 
@@ -11,7 +12,13 @@ const DeleteModal = ({ visible, onClose, sighting }: any) => {
         // delete the sighting
         await remove(deletedSightingRef);
         // Alert the user
-        ToastAndroid.show('Deleted Sighting!', ToastAndroid.SHORT);
+        //ToastAndroid.show('Deleted Sighting!', ToastAndroid.SHORT);
+        Toast.show({
+          type: "info",
+          text1: 'Deleted Sighting!',
+          position: "bottom",
+          visibilityTime: 2000
+        })
         // close the Modal
         onClose('delete');
     }
