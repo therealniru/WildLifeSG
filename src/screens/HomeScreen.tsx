@@ -1,4 +1,4 @@
-import { View, ToastAndroid, ImageBackground, StyleSheet } from 'react-native';
+import { Text, View, ToastAndroid, ImageBackground, StyleSheet, Image } from 'react-native';
 //import Map from '../components/Map';
 import ActionButton from '../components/ActionButton';
 import { useLocation } from '../hooks/useLocation';
@@ -27,7 +27,7 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
         <Button
           title="Sign Out"
           onPress={signOut}
-          color="#FF3B30"
+          color="#023d0dff"
         />
       ),
     });
@@ -62,29 +62,33 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/homepage-bg.png')}
+      source={require('../../assets/orbital_poster (3).png')}
       style={tw`flex-1`}
       resizeMode="stretch">
-    <View style={tw`flex-1`}>
+    <View style={tw`flex-1 items-center mt-10`}>
       {/*Below is the map component initially in the homepage, but commented out for now*/}
       {/*<Map location={location} hasPermission={hasPermission} />*/}
-
+      <Text style = {tw`text-6xl font-bold mb-1 text-[#e8eac5] mt-1`}>SGWildlife</Text>
+      <Text style = {tw`text-sm mb--40 text-white`}>Let's Take Wildlife Spotting To The Next Level</Text>
+      <Image source = {require("../../assets/parrot.png")} style = {tw`w-40, h-40 mt-47 ml-48 z-10 `} resizeMode = "contain"/>
       <View style={tw`absolute bottom-60 left-7 right-7 flex-col space-y-2`}>
-        
         <ActionButton
           title="View Wildlife Sightings"
           onPress={handleViewSpottings}
-          color="#006400"
+          color="#e8eac5" 
+          icon = {require("../../assets/location-icon.png")}
         />
         <ActionButton
           title="Add New Spotting"
           onPress={handleAddSpotting}
-          color="#006400"
+          color="#e8eac5"
+          icon = {require("../../assets/plus-icon.png")}
         />
         <ActionButton
           title="User Sightings"
           onPress={handleUserSightings}
-          color="#006400"
+          color="#e8eac5"
+          icon = {require("../../assets/user-icon.png")}
         />
       </View>
 
