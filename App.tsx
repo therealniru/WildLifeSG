@@ -4,6 +4,24 @@ import { NavigationContainer } from '@react-navigation/native';
 import { User } from 'firebase/auth';
 import { FIREBASE_AUTH } from './FirebaseConfig';
 import { LoggedInNavigator, LoggedOutNavigator } from './src/navigation/navigator';
+import Toast, {BaseToast, ToastProps} from 'react-native-toast-message';
+
+// toastConfig for customized style of toast messages
+const toastConfig = {
+  info: (props: ToastProps)  => (
+    <BaseToast
+      {...props}
+      text1Style = {{
+        fontSize: 16,
+        fontWeight: 'bold'
+      }}
+      text2Style = {{
+        fontSize: 16,
+        fontWeight: 'bold'
+      }}
+    />
+    ),
+};
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +44,7 @@ function App() {
           <Stack.Screen name="Login" component={LoggedOutNavigator} />
         )}
       </Stack.Navigator>
+      <Toast config = {toastConfig}/>
     </NavigationContainer>
   );
 }

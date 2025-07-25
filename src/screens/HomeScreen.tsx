@@ -6,6 +6,7 @@ import { use, useLayoutEffect } from 'react';
 import { Button } from 'react-native';
 import tw from 'twrnc';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
+import Toast from 'react-native-toast-message';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { LoggedInStackParamList } from '../types/stack';  // import the type for the navigation stack params
 
@@ -36,27 +37,57 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
   // useLayoutEffect is used to set the header options (signout button) when the component mounts
 
   const signOut = () => {
-    ToastAndroid.show('Signing out...', ToastAndroid.SHORT);
+    //ToastAndroid.show('Signing out...', ToastAndroid.SHORT);
+    Toast.show({
+      type: "info",
+      text1: "Singing out...",
+      position: "bottom",
+      visibilityTime: 1500
+    })
     auth.signOut()
   }
 
   const handleViewSpottings = () => {
-    ToastAndroid.show('Viewing wildlife spottings...', ToastAndroid.SHORT);
+    //ToastAndroid.show('Viewing wildlife spottings...', ToastAndroid.SHORT);
+    Toast.show({
+        type: "info",
+        text1: 'Viewing wildlife spottings...',
+        position: "bottom",
+        visibilityTime: 2000
+    })
     navigation.navigate('ViewSightings');
   };
 
   const handleAddSpotting = () => {
     if (!hasPermission) {
-      ToastAndroid.show('Location permission needed to add spotting', ToastAndroid.SHORT);
+      //ToastAndroid.show('Location permission needed to add spotting', ToastAndroid.SHORT);
+      Toast.show({
+        type: "info",
+        text1: 'Location permission needed to add spotting',
+        position: "bottom",
+        visibilityTime: 2000
+      })
       requestPermission();
       return;
     }
-    ToastAndroid.show('Opening Add Spotting...', ToastAndroid.SHORT);
+    //ToastAndroid.show('Opening Add Spotting...', ToastAndroid.SHORT);
+     Toast.show({
+      type: "info",
+      text1: 'Let us add some Sightings!',
+      position: "bottom",
+      visibilityTime: 2000
+    });
     navigation.navigate('AddSpotting');
   };
 
   const handleUserSightings = () => {
-    ToastAndroid.show('Viewing your wildlife spottings...', ToastAndroid.SHORT);
+    //ToastAndroid.show('Viewing your wildlife spottings...', ToastAndroid.SHORT);
+    Toast.show({
+      type: "info",
+      text1: 'Viewing your wildlife spottings...',
+      position: "bottom",
+      visibilityTime: 2000
+    });
     navigation.navigate('UserSightings');
   }
 
