@@ -53,7 +53,7 @@ const signUp = async () => {
     
 return (
     <ImageBackground
-      source={require('../../assets/orbital_poster (3).png')}
+      source={require('../../assets/bg.png')}
       style={tw`flex-1`}
       resizeMode="stretch">
         <View style={tw`flex-1 justify-center items-center`}>
