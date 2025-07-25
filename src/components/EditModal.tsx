@@ -3,6 +3,7 @@ import { View, Button, TextInput, Modal, Image, StyleSheet, ToastAndroid } from 
 import { ref, push, set, update } from 'firebase/database';
 import { FIREBASE_AUTH, db } from '../../FirebaseConfig';
 import { useImagePicker } from '../hooks/useImagePicker';
+import Toast from 'react-native-toast-message';
 
 interface Sighting {
   id: string;
@@ -46,7 +47,14 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
         // Reset form and state
         onClose("edit");
         clearPhoto();
-        ToastAndroid.show('Edited Sighting!', ToastAndroid.SHORT);
+        // notifying the user
+        //ToastAndroid.show('Edited Sighting!', ToastAndroid.SHORT);
+        Toast.show({
+          type: "info",
+          text1: 'Viewing wildlife spottings...',
+          position: "bottom",
+          visibilityTime: 2000
+        })
     };
 
     return (

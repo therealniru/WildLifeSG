@@ -251,6 +251,7 @@ const ViewSightings = () => {
   );
 };
 
+// did not use tailwind css here to kepp the code less verbose earlier
 const styles = StyleSheet.create({
   filterToggle: {
     backgroundColor: '#007AFF',
