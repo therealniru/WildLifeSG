@@ -25,9 +25,8 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
     const editSighting = async () => {
     // set the coordinates using sighting input
     //setCoords({ lat: sighting.lat, lng: sighting.lng });
-    // Validate all fields
-        if (!photoUri || !name || !desc) {
-        //ToastAndroid.show('Please fill in all fields and add a photo', ToastAndroid.SHORT);
+    // Validate all fields (allow keeping original photo if no new photo is selected)
+        if (!name || !desc) {
         Toast.show({
           type: "info",
           text1: 'Please fill in all fields',
@@ -36,31 +35,40 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
         })
         return;
         }
-        // Push the new sighting to the database
-        console.log("here is the sighting id:", sighting.id);
-        const editedSightingRef = ref(db, `sightings/${sighting.id}`);
-        await update(editedSightingRef, {
-            userId: sighting.userId,
-            name,
-            desc,
-            lat: sighting.lat,
-            lng: sighting.lng,
-            photoUrl: photoUri, // Store the base64 image string
-            timestamp: Date.now(),
-        });
-        //console.log("here is the edited sighting:", editedSightingRef);
-        //console.log('Sighting added:', sightings);
-        // Reset form and state
-        onClose("edit");
-        clearPhoto();
-        // notifying the user
-        //ToastAndroid.show('Edited Sighting!', ToastAndroid.SHORT);
-        Toast.show({
-          type: "info",
-          text1: 'Edited Sighting!',
-          position: "bottom",
-          visibilityTime: 2000
-        })
+        
+        try {
+            // Push the new sighting to the database
+            console.log("here is the sighting id:", sighting.id);
+            const editedSightingRef = ref(db, `sightings/${sighting.id}`);
+            await update(editedSightingRef, {
+                userId: sighting.userId,
+                name,
+                desc,
+                lat: sighting.lat,
+                lng: sighting.lng,
+                photoUrl: photoUri || sighting.photoUrl, // Use new photo if selected, otherwise keep original
+                timestamp: Date.now(),
+            });
+            
+            // Reset form and state
+            onClose("edit");
+            clearPhoto();
+            // notifying the user
+            Toast.show({
+              type: "info",
+              text1: 'Edited Sighting!',
+              position: "bottom",
+              visibilityTime: 2000
+            })
+        } catch (error) {
+            console.error('Error editing sighting:', error);
+            Toast.show({
+              type: "error",
+              text1: 'Failed to edit sighting',
+              position: "bottom",
+              visibilityTime: 2000
+            })
+        }
     };
 
     return (
@@ -78,6 +86,14 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
                     {/* Show photo preview if available, else show buttons to pick/take photo */}
                     {photoUri ? (
                       <Image source={{ uri: photoUri }} style={styles.previewImage} />
+                    ) : sighting.photoUrl ? (
+                      <View>
+                        <Image source={{ uri: sighting.photoUrl }} style={styles.previewImage} />
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+                          <Button title="Take New Photo" onPress={takePhoto} />
+                          <Button title="Pick New Photo" onPress={pickImage} />
+                        </View>
+                      </View>
                     ) : (
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                         <Button title="Take Photo" onPress={takePhoto} />
