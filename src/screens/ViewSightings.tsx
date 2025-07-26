@@ -216,6 +216,9 @@ const ViewSightings = () => {
         style={{ flex: 1 }}
         initialRegion={location}
         showsUserLocation
+        showsCompass
+        showsMyLocationButton
+        zoomEnabled
         provider="google"
         onPress={handleMapPress}
       >
