@@ -57,7 +57,7 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
         //ToastAndroid.show('Edited Sighting!', ToastAndroid.SHORT);
         Toast.show({
           type: "info",
-          text1: 'Viewing wildlife spottings...',
+          text1: 'Edited Sighting!',
           position: "bottom",
           visibilityTime: 2000
         })
