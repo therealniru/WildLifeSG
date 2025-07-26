@@ -52,7 +52,7 @@ const AddSpotting = () => {
       //ToastAndroid.show('Please fill in all fields and add a photo', ToastAndroid.SHORT);
       Toast.show({
           type: "info",
-          text1: 'Please fill in all fields and add a photo',
+          text1: 'Please fill in all fields',
           position: "bottom",
           visibilityTime: 2000
         })
