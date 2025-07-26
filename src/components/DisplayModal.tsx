@@ -24,18 +24,25 @@ const DisplayModal = ({sighting, visible, onClose}: any) => {
     const sightingRef = ref(db, `sightings/${displaySighting.id}`);
     await onValue(sightingRef, (data) => {
       const value = data.val();
-      setDisplaySighting({
-        id: displaySighting.id,
-        name: value.name,
-        desc: value.desc,
-        lat: value.lat,
-        lng: value.lng,
-        photoUrl: value.photoUrl,
-        timestamp: value.timestamp,
-        userId: value.userId,
-      })
-    })
-    
+      // Check if the sighting still exists in the database
+      if (value) {
+        setDisplaySighting({
+          id: displaySighting.id,
+          name: value.name,
+          desc: value.desc,
+          lat: value.lat,
+          lng: value.lng,
+          photoUrl: value.photoUrl,
+          timestamp: value.timestamp,
+          userId: value.userId,
+        });
+      } else {
+        // If sighting was deleted, close the modal
+        console.log("Sighting was deleted, closing modal");
+        setDisplayModalVisible(false);
+        onClose();
+      }
+    });
   }
 
   const closeEditModal = (button: string) => {
