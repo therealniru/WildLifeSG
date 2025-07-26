@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { View, Button, TextInput, Modal, Image, StyleSheet, ToastAndroid } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { ref, push, set } from 'firebase/database';
+import { ref, push, set, onValue } from 'firebase/database';
 import { FIREBASE_AUTH, db } from '../../FirebaseConfig';
 import { useImagePicker } from '../hooks/useImagePicker';
 //import * as Location from 'expo-location';
@@ -37,6 +37,31 @@ const AddSpotting = () => {
 
   // Use the custom image picker hook
   const { photoUri, pickImage, takePhoto, clearPhoto } = useImagePicker();
+
+  // Listen to Firebase for real-time sightings updates
+  useEffect(() => {
+    const sightingsRef = ref(db, 'sightings');
+    const unsubscribe = onValue(sightingsRef, (snapshot) => {
+      const data = snapshot.val();
+      const loadedSightings: Sighting[] = [];
+      if (data) {
+        Object.entries(data).forEach(([id, value]: [string, any]) => {
+          loadedSightings.push({
+            id,
+            name: value.name,
+            desc: value.desc,
+            lat: value.lat,
+            lng: value.lng,
+            photoUrl: value.photoUrl,
+            timestamp: value.timestamp,
+            userId: value.userId,
+          });
+        });
+      }
+      setSightings(loadedSightings);
+    });
+    return () => unsubscribe();
+  }, []);
 
   // When the user taps on the map, open the modal to add details and photo
   const onMapPress = (event: any) => {
@@ -82,20 +107,8 @@ const AddSpotting = () => {
         photoUrl: photoUri, // Store the base64 image string
         timestamp: Date.now(),
       });
-      setSightings((prev) => [
-        ...prev,
-        {
-          id: newSightingRef.key || '',
-          name,
-          desc,
-          lat: coords.lat,
-          lng: coords.lng,
-          photoUrl: photoUri,
-          timestamp: Date.now(),
-          userId: user.uid,
-        },
-      ]);
-      console.log('Sighting added:', sightings);
+      
+      console.log('Sighting added to database');
       // Reset form and state
       setModalVisible(false);
       setName('');

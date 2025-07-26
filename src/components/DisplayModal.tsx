@@ -52,9 +52,11 @@ const DisplayModal = ({sighting, visible, onClose}: any) => {
 
   const closeDeleteModal = (button: string) => {
     setDeleteModalVisible(false);
-    // only if the User deletes the sighting, the display modal should disaappear
+    // only if the User deletes the sighting, the display modal should disappear immediately
     if (button == 'delete') {
-      closeDisplayModal();
+      // Close the display modal immediately
+      setDisplayModalVisible(false);
+      onClose();
     }
   }
 
