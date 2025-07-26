@@ -38,27 +38,25 @@ const AddSpotting = () => {
   // Use the custom image picker hook
   const { photoUri, pickImage, takePhoto, clearPhoto } = useImagePicker();
 
-  // Listen to Firebase for real-time sightings updates
+  // Listen to Firebase for real-time updates of sightings added in this session
   useEffect(() => {
     const sightingsRef = ref(db, 'sightings');
     const unsubscribe = onValue(sightingsRef, (snapshot) => {
       const data = snapshot.val();
-      const loadedSightings: Sighting[] = [];
       if (data) {
-        Object.entries(data).forEach(([id, value]: [string, any]) => {
-          loadedSightings.push({
-            id,
-            name: value.name,
-            desc: value.desc,
-            lat: value.lat,
-            lng: value.lng,
-            photoUrl: value.photoUrl,
-            timestamp: value.timestamp,
-            userId: value.userId,
+        // Only update sightings that exist in our current local state
+        // This ensures we only show markers for sightings added in this session
+        setSightings(prevSightings => {
+          const updatedSightings = prevSightings.filter(localSighting => {
+            // Keep sighting if it still exists in database
+            return Object.keys(data).includes(localSighting.id);
           });
+          return updatedSightings;
         });
+      } else {
+        // If no data exists, clear all sightings
+        setSightings([]);
       }
-      setSightings(loadedSightings);
     });
     return () => unsubscribe();
   }, []);
@@ -107,6 +105,21 @@ const AddSpotting = () => {
         photoUrl: photoUri, // Store the base64 image string
         timestamp: Date.now(),
       });
+      
+      // Add the new sighting to local state for immediate display
+      setSightings((prev) => [
+        ...prev,
+        {
+          id: newSightingRef.key || '',
+          name,
+          desc,
+          lat: coords.lat,
+          lng: coords.lng,
+          photoUrl: photoUri,
+          timestamp: Date.now(),
+          userId: user.uid,
+        },
+      ]);
       
       console.log('Sighting added to database');
       // Reset form and state

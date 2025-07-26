@@ -116,7 +116,7 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
           icon = {require("../../assets/plus-icon.png")}
         />
         <ActionButton
-          title="User Sightings"
+          title="My Sightings"
           onPress={handleUserSightings}
           color="#e8eac5"
           icon = {require("../../assets/user-icon.png")}
@@ -129,3 +129,8 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
 };
 
 export default HomeScreen;
+
+// only changed "user sightings" to "My sightings" in 2 places 
+            // the title of the screen in navigator.tsx and
+            // button name in homescreen
+            // only for user display, file names are all still "UserSightings"
