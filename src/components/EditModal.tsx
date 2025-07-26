@@ -27,7 +27,13 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
     //setCoords({ lat: sighting.lat, lng: sighting.lng });
     // Validate all fields
         if (!photoUri || !name || !desc) {
-        ToastAndroid.show('Please fill in all fields and add a photo', ToastAndroid.SHORT);
+        //ToastAndroid.show('Please fill in all fields and add a photo', ToastAndroid.SHORT);
+        Toast.show({
+          type: "info",
+          text1: 'Please fill in all fields',
+          position: "bottom",
+          visibilityTime: 2000
+        })
         return;
         }
         // Push the new sighting to the database
