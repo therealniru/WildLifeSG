@@ -180,7 +180,7 @@ const ViewSightings = () => {
               <Text style={styles.filterLabel}>Date (yyyy-mm-dd):</Text>
               <TextInput
                 style={styles.filterInput}
-                placeholder="2025-01-01"
+                placeholder="YYYY-MM-DD"
                 value={dateFilter}
                 onChangeText={setDateFilter}
               />
