@@ -26,10 +26,15 @@ const LoggedInNavigator = () => {
             <LoggedInStack.Screen name="Home" component={HomeScreen} />  
             <LoggedInStack.Screen name="AddSpotting" component={AddSpotting} options = {{title : "Add Spotting"}}/>
             <LoggedInStack.Screen name="ViewSightings" component={ViewSightings} options = {{title : "View Sightings"}}/>
-            <LoggedInStack.Screen name="UserSightings" component={UserSightings} options = {{title : "User Sightings"}}/>
+            <LoggedInStack.Screen name="UserSightings" component={UserSightings} options = {{title : "My Sightings"}}/>
         </LoggedInStack.Navigator>
     )
 }
+    // only changed "user sightings" to "My sightings" in 2 places 
+            // the title of the screen above and
+            // button name in homescreen
+            // only for user display, file names are all still "UserSightings"
+
 // navigation, route are implicitly passed to the screen component as props
 // destructuring them in the function signature is a common practice in React Navigation
 
