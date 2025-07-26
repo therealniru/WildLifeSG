@@ -127,7 +127,10 @@ const AddSpotting = () => {
       <MapView
         style={{ flex: 1 }}
         onPress={onMapPress}
-        showsUserLocation={true}
+        showsUserLocation
+        showsCompass
+        showsMyLocationButton
+        zoomEnabled
         initialRegion={location}
         provider = "google"
       > 
