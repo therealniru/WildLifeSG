@@ -257,13 +257,13 @@ const ViewSightings = () => {
 // did not use tailwind css here to keep the code less verbose earlier
 const styles = StyleSheet.create({
   filterToggle: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#e8eac5',
     padding: 12,
     alignItems: 'center',
     zIndex: 1,
   },
   filterToggleText: {
-    color: 'white',
+    color: '#023d0dff',
     fontWeight: 'bold',
     fontSize: 16,
   },
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: '#333',
+    color: '#023d0dff',
   },
   filterInput: {
     borderWidth: 1,
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
   },
   locationFilterActive: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#e8eac5',
   },
   locationFilterText: {
     fontSize: 12,
