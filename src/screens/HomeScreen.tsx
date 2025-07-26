@@ -73,7 +73,7 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
     //ToastAndroid.show('Opening Add Spotting...', ToastAndroid.SHORT);
      Toast.show({
       type: "info",
-      text1: 'Let us add some Sightings!',
+      text1: "Let's add some Sightings!",
       position: "bottom",
       visibilityTime: 2000
     });
