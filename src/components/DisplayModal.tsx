@@ -112,6 +112,9 @@ const DisplayModal = ({sighting, visible, onClose}: any) => {
                     <Text style={styles.timestamp}>
                             Date:     {new Date(displaySighting.timestamp).toLocaleDateString()}
                     </Text>
+                    <Text style={styles.timestamp}>
+                            Time:     {new Date(displaySighting.timestamp).toLocaleTimeString()}
+                    </Text>
                     <Text style={styles.modalLocation}>
                             Location:    {displaySighting.lat?.toFixed(4)}, {displaySighting.lng?.toFixed(4)}
                     </Text>
@@ -144,6 +147,9 @@ const DisplayModal = ({sighting, visible, onClose}: any) => {
                     <Text style={styles.modalDesc}>{displaySighting.desc}</Text>
                     <Text style={styles.timestamp}>
                             Date:     {new Date(displaySighting.timestamp).toLocaleDateString()}
+                    </Text>
+                    <Text style={styles.timestamp}>
+                            Time:     {new Date(displaySighting.timestamp).toLocaleTimeString()}
                     </Text>
                     <Text style={styles.modalLocation}>
                             Location:     {displaySighting.lat?.toFixed(4)}, {displaySighting.lng?.toFixed(4)}
