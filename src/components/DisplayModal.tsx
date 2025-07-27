@@ -38,7 +38,7 @@ const DisplayModal = ({sighting, visible, onClose}: any) => {
         });
       } else {
         // If sighting was deleted, close the modal
-        console.log("Sighting was deleted, closing modal");
+        //console.log("Sighting was deleted, closing modal");
         setDisplayModalVisible(false);
         onClose();
       }
@@ -83,7 +83,7 @@ const DisplayModal = ({sighting, visible, onClose}: any) => {
     return stopListening;
     }, []);
 
-  console.log("Current user ID:", currUserId, "Sighting user ID:", sighting?.userId);
+  //console.log("Current user ID:", currUserId, "Sighting user ID:", sighting?.userId);
 
   // Display option to edit based on whether it is the user's own sighting
 

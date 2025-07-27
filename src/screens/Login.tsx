@@ -17,10 +17,10 @@ const signIn = async () => {
     setLoading(true);
     try {
         const response = await signInWithEmailAndPassword(auth, email, password);  // firebase function to sign in user
-        console.log("Login successful", response);
+        //console.log("Login successful", response);
     }
     catch(error){
-        console.log("Login failed", error);   // retrieve error message thrown by firebase
+        //console.log("Login failed", error);   // retrieve error message thrown by firebase
         if (error instanceof FirebaseError) {
             setError(error.message);   // set error message to state
         } else {
@@ -36,10 +36,10 @@ const signUp = async () => {
     setLoading(true);
     try{
         const response = await createUserWithEmailAndPassword(auth, email, password);   // firebase function to create user
-        console.log("Sign up successful", response);
+        //console.log("Sign up successful", response);
     }
     catch(error){
-        console.log("Sign up failed", error);    
+        //console.log("Sign up failed", error);    
         if (error instanceof Error) {
             setError(error.message);   // set error message to state
         } else {
