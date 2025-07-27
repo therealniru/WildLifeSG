@@ -123,7 +123,7 @@ Actual Result:
 -  Navigated to Login screen (pass)
 -  Session cleared (verified by attempting to go back) (pass)
 
-Status: PARTIAL PASS
+Status: Fail
 New ststus: bug fixed all test cases passed
 ---
 
@@ -482,7 +482,7 @@ Actual Result:
 -  Edit modal opened correctly (pass)
 -  Data not prepopulated (Bug #001) (fail)
 
-Status: FAIL (partial pass)
+Status: FAIL 
 Comments: Edit modal not retrieving existing data properly - needs investigation
 New status: Fixed, all cases pass
 
@@ -730,8 +730,8 @@ New Satus: bug fixed, all tests pass
 
 ## SUMMARY
 
-Total Test Cases: 100
-Passed: 96 (96%)
+Total Test Cases: 98
+Passed: 94 (96%)
 Failed: 3 (3%)
 Partial Pass: 1 (1%)
 
@@ -764,8 +764,8 @@ Test Document Version: 1.0
 
 ## UPDATED SUMMARY AFTER FIXING BUGS
 
-Total Test Cases: 100
-Passed: 100 (100%)
+Total Test Cases: 98
+Passed: 98 (100%)
 Failed: 0 (0%)
 Partial Pass: 0 (0%)
 
