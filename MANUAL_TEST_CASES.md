@@ -558,7 +558,7 @@ Test Steps:
 1. Tap "Delete" button in DisplayModal
 2. Observe confirmation dialog
 3. Read the confirmation message
-4. Test both "Cancel" and "Delete" options
+4. Test both Cancelation of deletion and deletion
 
 Expected Result: 
 - Confirmation dialog appears
