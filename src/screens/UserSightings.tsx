@@ -53,7 +53,7 @@ const UserSightings = () => {
         // Sort by newest first
         setSightings(userSightings.sort((a, b) => b.timestamp - a.timestamp));
       } catch (error) {
-        console.error('Error fetching sightings:', error);
+        //console.error('Error fetching sightings:', error);
       } finally {
         setLoading(false);
       }
