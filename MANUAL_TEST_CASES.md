@@ -17,8 +17,8 @@ Pre-conditions:
 
 Test Steps:
 1. Launch the app
-2. Enter email: "test@example.com"
-3. Enter password: "password123"
+2. Enter email: "xyz@gmail.com"
+3. Enter password: "123456"
 4. Tap "Login" button
 
 Expected Result: 
