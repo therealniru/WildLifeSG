@@ -38,7 +38,7 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
         
         try {
             // Push the new sighting to the database
-            console.log("here is the sighting id:", sighting.id);
+            //console.log("here is the sighting id:", sighting.id);
             const editedSightingRef = ref(db, `sightings/${sighting.id}`);
             await update(editedSightingRef, {
                 userId: sighting.userId,
@@ -61,7 +61,7 @@ const EditModal = ({ visible, onClose, sighting }: any) => {
               visibilityTime: 2000
             })
         } catch (error) {
-            console.error('Error editing sighting:', error);
+            //console.error('Error editing sighting:', error);
             Toast.show({
               type: "error",
               text1: 'Failed to edit sighting',

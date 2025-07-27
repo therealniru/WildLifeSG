@@ -20,7 +20,7 @@ interface Sighting {
 const { width } = Dimensions.get('window');
 
 const ViewSightings = () => {
-  console.log("ViewSightings component rendered");
+  //console.log("ViewSightings component rendered");
   const [sightings, setSightings] = useState<Sighting[]>([]);
   const [filteredSightings, setFilteredSightings] = useState<Sighting[]>([]);
   const [selectedSighting, setSelectedSighting] = useState<Sighting | null>(null);
@@ -43,7 +43,7 @@ const ViewSightings = () => {
       const loadedSightings: Sighting[] = [];
       if (data) {
         Object.entries(data).forEach(([id, value]: [string, any]) => {
-          console.log("Loading sighting:", id, value.lat, value.lng);
+          //console.log("Loading sighting:", id, value.lat, value.lng);
           loadedSightings.push({
             id,
             name: value.name,
@@ -223,7 +223,7 @@ const ViewSightings = () => {
         onPress={handleMapPress}
       >
         {filteredSightings.map(sighting => (
-          console.log("Rendering marker for sighting:", sighting.lat, sighting.lng),
+          //console.log("Rendering marker for sighting:", sighting.lat, sighting.lng),
           <Marker
             key={sighting.id}
             coordinate={{ latitude: sighting.lat, longitude: sighting.lng }}
