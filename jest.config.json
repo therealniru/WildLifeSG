@@ -1,0 +1,33 @@
+{
+  "testEnvironment": "node",
+  "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"],
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
+  "transform": {
+    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest"
+  },
+  "transformIgnorePatterns": [
+    "node_modules/(?!(expo-.*|@expo|react-native-toast-message)/)"
+  ],
+  "testMatch": [
+    "**/__tests__/**/*.(test|spec).(ts|tsx|js|jsx)",
+    "**/?(*.)(test|spec).(ts|tsx|js|jsx)"
+  ],
+  "collectCoverageFrom": [
+    "src/**/*.{ts,tsx}",
+    "!src/**/*.d.ts",
+    "!src/types/**/*"
+  ],
+  "coverageDirectory": "coverage",
+  "coverageReporters": ["text", "lcov", "html"],
+  "moduleNameMapper": {
+    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "identity-obj-proxy",
+    "^react-native$": "<rootDir>/node_modules/react-native",
+    "^react-native/(.*)$": "<rootDir>/node_modules/react-native/$1"
+  },
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "/android/",
+    "/ios/"
+  ]
+}
