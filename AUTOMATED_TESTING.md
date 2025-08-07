@@ -8,7 +8,7 @@ This document outlines the automated testing suite for the WildLifeSG React Nati
 
 ### 1. Core Logic Tests (`src/__tests__/core-logic.test.js`)
 
-**Coverage: 14 test cases - All Passing ✅**
+**Coverage: 14 test cases - All Passing**
 
 - **Data Validation**: Validates required sighting fields, Singapore coordinate boundaries, handles empty/invalid data
 - **Data Transformation**: Timestamp to date conversion, coordinate precision formatting, image URI creation
@@ -19,7 +19,7 @@ This document outlines the automated testing suite for the WildLifeSG React Nati
 
 ### 2. Image Picker Utilities Tests (`src/__tests__/image-picker-utils.test.js`)
 
-**Coverage: 7 test cases - All Passing ✅**
+**Coverage: 7 test cases - All Passing**
 
 - **Image Data Validation**: Base64 data validation, proper URI format creation
 - **Permission Handling**: Permission state management and user feedback
@@ -27,7 +27,7 @@ This document outlines the automated testing suite for the WildLifeSG React Nati
 
 ### 3. Location Utilities Tests (`src/__tests__/location-utils.test.js`)
 
-**Coverage: 7 test cases - All Passing ✅**
+**Coverage: 7 test cases - All Passing**
 
 - **Singapore Coordinate Validation**: Boundary checking, coordinate precision
 - **Distance Calculations**: Distance between points, nearby coordinate detection
@@ -54,14 +54,14 @@ npm test src/__tests__/location-utils.test.js
 
 ### Test Results Summary
 ```
-✅ Core Logic Tests: 14/14 tests passed
-✅ Image Picker Utils Tests: 7/7 tests passed  
-✅ Location Utils Tests: 7/7 tests passed
+ Core Logic Tests: 14/14 tests passed
+ Image Picker Utils Tests: 7/7 tests passed  
+ Location Utils Tests: 7/7 tests passed
 
 Overall: 28/28 tests passing (100% success rate)
 ```
 
-## 🔧 Test Architecture
+## Test Architecture
 
 ### Design Principles
 1. **Unit Testing Focus**: Tests core logic without heavy React Native dependencies
@@ -75,9 +75,9 @@ Overall: 28/28 tests passing (100% success rate)
 - **Coverage**: Built-in Jest coverage reporting
 - **Custom Runner**: Custom test runner script for better UX
 
-## 📊 Test Coverage Areas
+## Test Coverage Areas
 
-### ✅ Fully Covered
+### Fully Covered
 - Data validation and sanitization
 - Singapore coordinate boundary checking  
 - Image base64 encoding/decoding
@@ -99,7 +99,7 @@ Overall: 28/28 tests passing (100% success rate)
 - Cross-platform compatibility
 - Network error scenarios
 
-##  Configuration
+## Configuration
 
 ### Jest Configuration (`jest.config.json`)
 ```json
