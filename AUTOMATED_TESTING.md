@@ -166,17 +166,4 @@ it('should handle large datasets efficiently', () => {
 3. Update tests when changing business logic
 4. Document any test-specific setup requirements
 
-## Conclusion
-
-The WildLifeSG app now has a solid foundation of automated tests covering the most critical functionality. With **28/28 tests passing** and comprehensive coverage of data validation, image handling, location utilities, and performance scenarios, the app is well-positioned for reliable development and deployment.
-
-The test suite provides confidence in:
-- Data integrity and validation
-- Core business logic correctness  
-- Performance with realistic usage patterns
-- Error handling and edge cases
-- Singapore-specific location features
-- Image processing and validation
-- Location calculations and mapping
-
-**Next Steps**: Run `npm run test:unit` to see the full test suite in action!
+**Next Steps**: Run `npm run test:unit`
