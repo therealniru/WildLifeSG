@@ -4,7 +4,7 @@
 
 This document outlines the automated testing suite for the WildLifeSG React Native application. The tests focus on core business logic and utilities in the `src/__tests__/` folder, designed to be fast, reliable, and cover the most critical functionality without complex React Native dependencies.
 
-## ✅ Working Test Suites
+## Working Test Suites
 
 ### 1. Core Logic Tests (`src/__tests__/core-logic.test.js`)
 
@@ -34,7 +34,7 @@ This document outlines the automated testing suite for the WildLifeSG React Nati
 - **Location Permission Logic**: Permission state handling
 - **Map Region Calculations**: Region creation, bounding box calculations
 
-## 🚀 Running Tests
+## Running Tests
 
 ### Quick Start
 ```bash
@@ -91,7 +91,7 @@ Overall: 28/28 tests passing (100% success rate)
 - Location distance calculations
 - Map region calculations
 
-### � Requires Manual Testing  
+###  Requires Manual Testing  
 - UI/UX component interactions
 - Camera/gallery permissions on device
 - Real Firebase database operations
@@ -99,7 +99,7 @@ Overall: 28/28 tests passing (100% success rate)
 - Cross-platform compatibility
 - Network error scenarios
 
-## 🛠️ Configuration
+##  Configuration
 
 ### Jest Configuration (`jest.config.json`)
 ```json
@@ -120,7 +120,7 @@ Overall: 28/28 tests passing (100% success rate)
 }
 ```
 
-## 🎯 Test Examples
+##  Test Examples
 
 ### Data Validation Test
 ```javascript
@@ -166,7 +166,7 @@ it('should handle large datasets efficiently', () => {
 3. Update tests when changing business logic
 4. Document any test-specific setup requirements
 
-## 🎉 Conclusion
+## Conclusion
 
 The WildLifeSG app now has a solid foundation of automated tests covering the most critical functionality. With **28/28 tests passing** and comprehensive coverage of data validation, image handling, location utilities, and performance scenarios, the app is well-positioned for reliable development and deployment.
 
