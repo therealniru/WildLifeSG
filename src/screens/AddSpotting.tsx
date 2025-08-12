@@ -198,12 +198,14 @@ const AddSpotting = () => {
             {/* Name and description input fields */}
             <TextInput
               placeholder="Wildlife Species"
+              placeholderTextColor="#888"
               value={name}
               onChangeText={setName}
               style={styles.input}
             />
             <TextInput
               placeholder="Description/Landmark"
+              placeholderTextColor="#888"
               value={desc}
               onChangeText={setDesc}
               style={styles.input}
@@ -255,6 +257,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 10,
     borderRadius: 5,
+    color: 'black',
   },
   previewImage: {
     width: '100%',

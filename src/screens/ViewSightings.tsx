@@ -170,6 +170,7 @@ const ViewSightings = () => {
               <TextInput
                 style={styles.filterInput}
                 placeholder="Enter Species Name"
+                placeholderTextColor="#888"
                 value={speciesFilter}
                 onChangeText={setSpeciesFilter}
               />
@@ -181,6 +182,7 @@ const ViewSightings = () => {
               <TextInput
                 style={styles.filterInput}
                 placeholder="YYYY-MM-DD"
+                placeholderTextColor="#888"
                 value={dateFilter}
                 onChangeText={setDateFilter}
               />
@@ -291,6 +293,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontSize: 14,
     backgroundColor: 'white',
+    color: 'black',
   },
   locationFilterButton: {
     backgroundColor: '#f0f0f0',

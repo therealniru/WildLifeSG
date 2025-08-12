@@ -100,9 +100,10 @@ const HomeScreen = ( {navigation} : HomeScreenProps) => {
       {/*Below is the map component initially in the homepage, but commented out for now*/}
       {/*<Map location={location} hasPermission={hasPermission} />*/}
       <Text style = {tw`text-6xl font-bold mb-1 text-[#e8eac5] mt-1`}>SGWildlife</Text>
-      <Text style = {tw`text-sm mb--40 text-white`}>Let's Take Wildlife Spotting To The Next Level</Text>
-      <Image source = {require("../../assets/parrot.png")} style = {tw`w-40, h-40 mt-47 ml-48 z-10 `} resizeMode = "contain"/>
+      <Text style = {tw`text-sm mb--40 text-white`}>Let Us Take Wildlife Spotting To The Next Level</Text>
+      {/* <Image source = {require("../../assets/parrot.png")} style = {tw`w-40 h-40 mt-46 ml-48 z-10 `} resizeMode = "contain"/> */}
       <View style={tw`absolute bottom-60 left-7 right-7 flex-col space-y-2`}>
+        <Image source = {require("../../assets/parrot.png")} style = {tw`w-35 h-35 absolute -top-25 right-0 z-10 `} resizeMode = "contain"/>
         <ActionButton
           title="View Wildlife Sightings"
           onPress={handleViewSpottings}

@@ -63,11 +63,11 @@ return (
                 {/* Added a box around login to make it look more aesthetic*/}
                 <View style={tw`flex-col items-center bg-[#e8eac5] rounded-2xl p-4 w-80`}>
                     <Text style={tw`text-2xl font-bold mb-4 text-green-800`}>Login/Sign up</Text>    
-                    <TextInput style={tw`border border-gray-300 rounded-lg p-2 w-60 mb-4 bg-white`}
-                    placeholder = "Email address" autoCapitalize='none' onChange={(e) => setEmail(e.nativeEvent.text)} value={email} 
+                    <TextInput style={tw`border border-gray-300 rounded-lg p-2 w-60 mb-4 bg-white text-black`}
+                    placeholder = "Email address" placeholderTextColor="#888" autoCapitalize='none' onChange={(e) => setEmail(e.nativeEvent.text)} value={email} 
                     />
-                    <TextInput style={tw`border border-gray-300 rounded-lg p-2 w-60 mb-4 bg-white`}
-                    placeholder = "Password" autoCapitalize = 'none' onChange = {(e) => setPassword(e.nativeEvent.text)} value={password} 
+                    <TextInput style={tw`border border-gray-300 rounded-lg p-2 w-60 mb-4 bg-white text-black`}
+                    placeholder = "Password" placeholderTextColor="#888" autoCapitalize = 'none' onChange = {(e) => setPassword(e.nativeEvent.text)} value={password} 
                     secureTextEntry/>
                     {error ? ( <Text style={tw`text-red-500 mb-4`}>{error}</Text> ) : null}   
                     
