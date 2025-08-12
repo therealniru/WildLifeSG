@@ -198,6 +198,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: -3,
     textAlign: 'center',
+    color: 'black',
   },
   modalDesc: {
     fontSize: 15,
