@@ -8,7 +8,7 @@
 const { execSync } = require('child_process');
 const path = require('path');
 
-console.log('🧪 WildLifeSG Automated Test Suite');
+console.log('WildLifeSG Automated Test Suite');
 console.log('=====================================\n');
 
 const testSuites = [
@@ -66,7 +66,7 @@ testSuites.forEach((suite, index) => {
 
 // Summary
 console.log('\n' + '='.repeat(60));
-console.log('📊 TEST SUMMARY');
+console.log('TEST SUMMARY');
 console.log('='.repeat(60));
 
 allResults.forEach(result => {
@@ -74,25 +74,25 @@ allResults.forEach(result => {
   console.log(`${status} ${result.name}: ${result.passed} passed, ${result.failed} failed`);
 });
 
-console.log('\n📈 OVERALL RESULTS:');
+console.log('\nOVERALL RESULTS:');
 console.log(`   Total Tests Passed: ${totalPassed}`);
 console.log(`   Total Suites Failed: ${totalFailed}`);
 console.log(`   Success Rate: ${totalFailed === 0 ? '100%' : Math.round((allResults.filter(r => r.status === 'PASS').length / allResults.length) * 100)}%`);
 
 if (totalFailed === 0) {
-  console.log('\n🎉 All tests passed! Your wildlife app is ready for deployment.');
+  console.log('\nAll tests passed! Your wildlife app is ready for deployment.');
 } else {
-  console.log('\n⚠️  Some test suites failed. Check the logs above for details.');
+  console.log('\nSome test suites failed. Check the logs above for details.');
 }
 
-console.log('\n📚 Available Test Commands:');
+console.log('\nAvailable Test Commands:');
 console.log('   npm test                              # Run all available tests');
 console.log('   npm run test:coverage                 # Run tests with coverage');
 console.log('   npm test src/__tests__/core-logic     # Run core logic tests only');
 console.log('   npm test src/__tests__/image-picker   # Run image picker tests only');
 console.log('   npm test src/__tests__/location-utils # Run location utils tests only');
 
-console.log('\n🔧 Test Coverage Areas:');
+console.log('\nTest Coverage Areas:');
 console.log('   ✅ Data validation and transformation');
 console.log('   ✅ Singapore coordinate validation');
 console.log('   ✅ Image handling and base64 operations');

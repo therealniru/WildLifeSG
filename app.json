@@ -35,7 +35,7 @@
       ],
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyAcTLwR-ahTo_io_aRiPmOPwmxbO3z4IzU"
+          "apiKey": "<removed>"
         }
       },
       "runtimeVersion": "1.0.0"
