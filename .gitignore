@@ -76,3 +76,6 @@ yarn-error.log
 
 # Env
 .env
+
+# API Keys and Configuration
+src/Config.ts
