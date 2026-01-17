@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { View, Button, TextInput, Modal, Image, StyleSheet, ToastAndroid } from 'react-native';
+import { View, Button, TextInput, Modal, Image, StyleSheet, ToastAndroid, ActivityIndicator, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { ref, push, set, onValue } from 'firebase/database';
 import { FIREBASE_AUTH, db } from '../../FirebaseConfig';
@@ -8,6 +8,7 @@ import { useImagePicker } from '../hooks/useImagePicker';
 import { useLocation } from '../hooks/useLocation';
 import DisplayModal from '../components/DisplayModal';
 import Toast from 'react-native-toast-message';
+import { identifySpecies } from '../services/AIService';
 
 interface Sighting {
   id: string;
@@ -28,11 +29,12 @@ const AddSpotting = () => {
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
   const [sightings, setSightings] = useState<Sighting[]>([]);
   const [selectedSighting, setSelectedSighting] = useState<Sighting | null>(null);
+  const [isIdentifying, setIsIdentifying] = useState(false);
   //const [location, setLocation] = useState<any>(null);
 
   // Request location permission and get current location on mount
   // This will set the initial region of the map to the user's current location
-  
+
   const { location, hasPermission } = useLocation();
 
   // Use the custom image picker hook
@@ -61,6 +63,30 @@ const AddSpotting = () => {
     return () => unsubscribe();
   }, []);
 
+  // Identify species when photo is selected
+  useEffect(() => {
+    const identify = async () => {
+      if (photoUri) {
+        setIsIdentifying(true);
+        //setName('Identifying species...');
+        const speciesName = await identifySpecies(photoUri);
+        if (speciesName) {
+          setName(speciesName);
+        } else {
+          //setName(''); // keep empty or show error? using toast for error might be better or just let user type
+          Toast.show({
+            type: "info",
+            text1: 'Could not identify species automatically',
+            position: "bottom",
+            visibilityTime: 2000
+          })
+        }
+        setIsIdentifying(false);
+      }
+    };
+    identify();
+  }, [photoUri]);
+
   // When the user taps on the map, open the modal to add details and photo
   const onMapPress = (event: any) => {
     const { latitude, longitude } = event.nativeEvent.coordinate;
@@ -74,11 +100,11 @@ const AddSpotting = () => {
     if (!coords || !photoUri || !name || !desc) {
       //ToastAndroid.show('Please fill in all fields and add a photo', ToastAndroid.SHORT);
       Toast.show({
-          type: "info",
-          text1: 'Please fill in all fields',
-          position: "bottom",
-          visibilityTime: 2000
-        })
+        type: "info",
+        text1: 'Please fill in all fields',
+        position: "bottom",
+        visibilityTime: 2000
+      })
       return;
     }
     try {
@@ -105,7 +131,7 @@ const AddSpotting = () => {
         photoUrl: photoUri, // Store the base64 image string
         timestamp: Date.now(),
       });
-      
+
       // Add the new sighting to local state for immediate display
       setSightings((prev) => [
         ...prev,
@@ -120,7 +146,7 @@ const AddSpotting = () => {
           userId: user.uid,
         },
       ]);
-      
+
       console.log('Sighting added to database');
       // Reset form and state
       setModalVisible(false);
@@ -130,20 +156,20 @@ const AddSpotting = () => {
       clearPhoto();
       //ToastAndroid.show('Sighting added!', ToastAndroid.SHORT);
       Toast.show({
-          type: "info",
-          text1: 'Sighting added!',
-          position: "bottom",
-          visibilityTime: 2000
-        })
+        type: "info",
+        text1: 'Sighting added!',
+        position: "bottom",
+        visibilityTime: 2000
+      })
     } catch (error) {
       console.error('Error adding sighting:', error);
       //ToastAndroid.show('Failed to add sighting', ToastAndroid.SHORT);
       Toast.show({
-          type: "info",
-          text1: 'Failed to add sighting',
-          position: "bottom",
-          visibilityTime: 2000
-        })
+        type: "info",
+        text1: 'Failed to add sighting',
+        position: "bottom",
+        visibilityTime: 2000
+      })
     }
   };
 
@@ -158,8 +184,8 @@ const AddSpotting = () => {
         showsMyLocationButton
         zoomEnabled
         initialRegion={location}
-        provider = "google"
-      > 
+        provider="google"
+      >
         {/* Show marker if coordinates are selected */}
         {coords && (
           <Marker coordinate={{ latitude: coords.lat, longitude: coords.lng }} />
@@ -195,6 +221,15 @@ const AddSpotting = () => {
                 <Button title="Pick from Gallery" onPress={pickImage} />
               </View>
             )}
+
+            {/* AI Identification Loading Indicator */}
+            {isIdentifying && (
+              <View style={styles.identifyingContainer}>
+                <ActivityIndicator size="small" color="#0000ff" />
+                <Text style={styles.identifyingText}>Identifying species...</Text>
+              </View>
+            )}
+
             {/* Name and description input fields */}
             <TextInput
               placeholder="Wildlife Species"
@@ -202,6 +237,7 @@ const AddSpotting = () => {
               value={name}
               onChangeText={setName}
               style={styles.input}
+              editable={!isIdentifying}
             />
             <TextInput
               placeholder="Description/Landmark"
@@ -212,7 +248,7 @@ const AddSpotting = () => {
             />
             {/* Add and Cancel buttons */}
             <View style={styles.buttonContainer}>
-              <Button title="Add Sighting" onPress={addMarker} />
+              <Button title="Add Sighting" onPress={addMarker} disabled={isIdentifying} />
               <Button
                 title="Cancel"
                 onPress={() => {
@@ -267,6 +303,16 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     gap: 10,
+  },
+  identifyingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 5,
+  },
+  identifyingText: {
+    marginLeft: 10,
+    color: '#666',
   },
 });
 
