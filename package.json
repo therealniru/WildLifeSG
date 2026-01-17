@@ -27,6 +27,7 @@
     "test:ci": "node run-tests.js"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
     "@react-native-community/datetimepicker": "8.4.4",
     "@react-native-community/geolocation": "^3.4.0",
     "@react-navigation/native": "^7.1.9",
